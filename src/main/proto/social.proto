@@ -11,6 +11,7 @@ import "common.proto";
 service SocialService {
     rpc FollowUser(FollowUserRequest) returns (common.Response);
     rpc UnfollowUser(UnfollowRequest) returns (common.Response);
+    rpc GetFollowers(GetFollowersRequest) returns (common.Response);
     rpc GetPosts(GetPostsRequest) returns (common.Response);
     rpc GetPostById(GetPostByIdRequest) returns (common.Response);
     rpc CreatePost (CreatePostRequest) returns (common.Response);
@@ -25,6 +26,10 @@ service SocialService {
     rpc IncrementCommentLikes(IncrementCommentLikesRequest) returns (common.Response);
     rpc DecrementCommentLikes(DecrementCommentLikesRequest) returns (common.Response);
     rpc CreateReply(CreateReplyRequest) returns (common.Response);
+    rpc GetUnreadFeedActivities(GetUnreadFeedActivitiesRequest) returns (common.Response);
+    rpc GetFeedActivities(GetFeedActivitiesRequest) returns (common.Response);
+    rpc MarkActivityAsRead(MarkActivityAsReadRequest) returns (common.Response);
+    rpc getLatestActivityForFollowees(GetLatestActivityRequest) returns (common.Response);
 }
 
 message FollowUserRequest {
@@ -35,6 +40,10 @@ message FollowUserRequest {
 message UnfollowRequest {
     uint64 followerId = 1;
     uint64 followeeId = 2;
+}
+
+message GetFollowersRequest {
+    uint64 userId = 1;
 }
 
 message GetPostByIdRequest {
@@ -112,4 +121,24 @@ message CreateReplyRequest {
     uint64 userId = 2;
     uint64 parentCommentId = 3;
     string content = 4;
+}
+
+message GetUnreadFeedActivitiesRequest {
+    uint64 userId = 1;
+    uint32 page = 2;
+    uint32 pageSize = 3;
+}
+
+message GetFeedActivitiesRequest {
+    uint64 userId = 1;
+    uint32 page = 2;
+    uint32 pageSize = 3;
+}
+
+message MarkActivityAsReadRequest {
+    uint64 activityId = 1;
+}
+
+message GetLatestActivityRequest {
+    int64 user_id = 1;
 }

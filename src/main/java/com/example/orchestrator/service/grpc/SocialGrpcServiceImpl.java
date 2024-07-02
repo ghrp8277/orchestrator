@@ -30,6 +30,11 @@ public class SocialGrpcServiceImpl implements SocialGrpcService {
     }
 
     @Override
+    public Response getFollowers(GetFollowersRequest getFollowersRequest) {
+        return socialServiceBlockingStub.getFollowers(getFollowersRequest);
+    }
+
+    @Override
     public Response getPostById(GetPostByIdRequest getPostByIdRequest) {
         return socialServiceBlockingStub.getPostById(getPostByIdRequest);
     }
@@ -92,5 +97,25 @@ public class SocialGrpcServiceImpl implements SocialGrpcService {
     @Override
     public Response decrementCommentLikes(DecrementCommentLikesRequest decrementCommentLikesRequest) {
         return socialServiceBlockingStub.decrementCommentLikes(decrementCommentLikesRequest);
+    }
+
+    @Override
+    public Response getUnreadFeedActivities(GetUnreadFeedActivitiesRequest getUnreadFeedActivitiesRequest) {
+        return socialServiceBlockingStub.getUnreadFeedActivities(getUnreadFeedActivitiesRequest);
+    }
+
+    @Override
+    public Response getFeedActivities(GetFeedActivitiesRequest getFeedActivitiesRequest) {
+        return socialServiceBlockingStub.getFeedActivities(getFeedActivitiesRequest);
+    }
+
+    @Override
+    public Response markActivityAsRead(MarkActivityAsReadRequest markActivityAsReadRequest) {
+        return socialServiceBlockingStub.markActivityAsRead(markActivityAsReadRequest);
+    }
+
+    @Override
+    public Response getLatestActivityForFollowees(GetLatestActivityRequest getLatestActivityRequest) {
+        return socialServiceBlockingStub.getLatestActivityForFollowees(getLatestActivityRequest);
     }
 }

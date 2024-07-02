@@ -48,7 +48,6 @@ repositories {
 dependencies {
     //stomp socket
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'org.springframework.boot:spring-boot-starter-activemq'
 
     // JWT 종속성 추가
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'

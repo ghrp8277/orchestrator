@@ -7,4 +7,5 @@ public interface UserGrpcService {
     Response authenticateUser(AuthenticateUserRequest authenticateUserRequest);
     Response updatePassword(UpdatePasswordRequest updatePasswordRequest);
     Response findUser(FindUserRequest findUserRequest);
+    Response updateProfile(UpdateProfileRequest updateProfileRequest);
 }

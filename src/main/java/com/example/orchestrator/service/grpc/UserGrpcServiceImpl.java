@@ -43,4 +43,9 @@ public class UserGrpcServiceImpl implements UserGrpcService {
     public Response authenticateUser(AuthenticateUserRequest request) {
         return userServiceBlockingStub.authenticateUser(request);
     }
+
+    @Override
+    public Response updateProfile(UpdateProfileRequest updateProfileRequest) {
+        return userServiceBlockingStub.updateProfile(updateProfileRequest);
+    }
 }

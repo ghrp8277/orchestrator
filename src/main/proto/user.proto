@@ -14,6 +14,7 @@ service UserService {
     rpc AuthenticateUser (AuthenticateUserRequest) returns (common.Response);
     rpc UpdatePassword (UpdatePasswordRequest) returns (common.Response);
     rpc findUser (FindUserRequest) returns (common.Response);
+    rpc UpdateProfile (UpdateProfileRequest) returns (common.Response);
 }
 
 message FindUserRequest {
@@ -52,4 +53,9 @@ message UpdatePasswordRequest {
     uint64 userId = 1;
     string currentPassword = 2;
     string newPassword = 3;
+}
+
+message UpdateProfileRequest {
+    uint64 userId = 1;
+    Profile profile = 2;
 }

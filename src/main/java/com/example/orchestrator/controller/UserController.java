@@ -1,6 +1,6 @@
 package com.example.orchestrator.controller;
-import com.example.orchestrator.dto.FindUserDto;
 import com.example.orchestrator.dto.PasswordUpdateDto;
+import com.example.orchestrator.dto.UpdateProfileDto;
 import com.example.orchestrator.dto.UserDto;
 import com.example.orchestrator.service.UserService;
 import jakarta.validation.Valid;
@@ -42,6 +42,13 @@ public class UserController {
     @PostMapping(value = "/change-password", consumes = "application/json")
     public ResponseEntity<String> updatePassword(@Valid @RequestBody PasswordUpdateDto passwordUpdateDto) {
         Response response = userService.updatePassword(passwordUpdateDto);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @PostMapping(value = "/update-profile", consumes = "multipart/form-data")
+    public ResponseEntity<String> updateProfile(@Valid @RequestPart("user") UpdateProfileDto updateProfileDto,
+                                                @RequestPart("profileImage") MultipartFile profileImage) {
+        Response response = userService.updateProfile(updateProfileDto, profileImage);
         return grpcResponseHelper.createJsonResponse(response);
     }
 }

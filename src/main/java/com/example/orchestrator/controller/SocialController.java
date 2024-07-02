@@ -120,4 +120,32 @@ public class SocialController {
         Response response = socialService.decrementCommentLikes(commentId, likeDto);
         return grpcResponseHelper.createJsonResponse(response);
     }
+
+    @GetMapping("/activities")
+    public ResponseEntity<String> getFeedActivities(@Valid @ModelAttribute PaginationRequestDto paginationRequest, @RequestParam Long userId) {
+        Response response = socialService.getFeedActivities(userId, paginationRequest);
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
+                .body(grpcResponseHelper.createJsonResponse(response).getBody());
+    }
+
+    @GetMapping("/activities/unread")
+    public ResponseEntity<String> getUnreadFeedActivities(@Valid @ModelAttribute PaginationRequestDto paginationRequest, @RequestParam Long userId) {
+        Response response = socialService.getUnreadFeedActivities(userId, paginationRequest);
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
+                .body(grpcResponseHelper.createJsonResponse(response).getBody());
+    }
+
+    @PostMapping("/activities/{activityId}/mark-read")
+    public ResponseEntity<String> markActivityAsRead(@PathVariable Long activityId) {
+        Response response = socialService.markActivityAsRead(activityId);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @GetMapping("/test/{userId}")
+    public ResponseEntity<String> test(@PathVariable Long userId) {
+        Response response = socialService.getLatestActivityForFollowees(userId);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
 }

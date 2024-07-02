@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -53,6 +54,19 @@ public class JsonUtil {
                 throw new RuntimeException("Key not found in JSON: " + key);
             }
             return objectMapper.convertValue(valueNode, Map.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Invalid JSON format", e);
+        }
+    }
+
+    public List<Long> getListByKey(String json, String key) {
+        try {
+            JsonNode rootNode = objectMapper.readTree(json);
+            JsonNode valueNode = rootNode.path(key);
+            if (valueNode.isMissingNode()) {
+                throw new RuntimeException("Key not found in JSON: " + key);
+            }
+            return objectMapper.convertValue(valueNode, objectMapper.getTypeFactory().constructCollectionType(List.class, Long.class));
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Invalid JSON format", e);
         }

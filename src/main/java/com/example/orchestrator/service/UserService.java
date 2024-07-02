@@ -1,10 +1,7 @@
 package com.example.orchestrator.service;
 
 import com.example.grpc.*;
-import com.example.orchestrator.dto.FindUserDto;
-import com.example.orchestrator.dto.ImageDto;
-import com.example.orchestrator.dto.PasswordUpdateDto;
-import com.example.orchestrator.dto.UserDto;
+import com.example.orchestrator.dto.*;
 import com.example.orchestrator.service.grpc.UserGrpcService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -71,5 +68,28 @@ public class UserService {
                 .setPassword(password)
                 .build();
         return userGrpcService.authenticateUser(request);
+    }
+
+    public Response updateProfile(UpdateProfileDto updateProfileDto, MultipartFile profileImage) {
+        ImageDto imageDto = fileUploadService.storeFile(profileImage);
+
+        Image image = Image.newBuilder()
+            .setPath(imageDto.getUploadPath())
+            .setOriginalFilename(imageDto.getOriginalFilename())
+            .setFileExtension(imageDto.getFileExtension())
+            .setDescription("Updated profile image for user " + updateProfileDto.getUserId())
+            .build();
+
+        Profile profile = Profile.newBuilder()
+            .setGreeting(updateProfileDto.getGreeting())
+            .setImage(image)
+            .build();
+
+        UpdateProfileRequest request = UpdateProfileRequest.newBuilder()
+            .setUserId(updateProfileDto.getUserId())
+            .setProfile(profile)
+            .build();
+
+        return userGrpcService.updateProfile(request);
     }
 }

@@ -5,6 +5,7 @@ import com.example.grpc.*;
 public interface SocialGrpcService {
     Response followUser(FollowUserRequest followUserRequest);
     Response unfollowUser(UnfollowRequest unfollowRequest);
+    Response getFollowers(GetFollowersRequest getFollowersRequest);
     Response getPostById(GetPostByIdRequest getPostByIdRequest);
     Response getPosts(GetPostsRequest getPostsRequest);
     Response createPost(CreatePostRequest createPostRequest);
@@ -18,4 +19,8 @@ public interface SocialGrpcService {
     Response decrementCommentLikes(DecrementCommentLikesRequest decrementCommentLikesRequest);
     Response incrementPostLikes(IncrementPostLikesRequest incrementPostLikesRequest);
     Response decrementPostLikes(DecrementPostLikesRequest decrementPostLikesRequest);
+    Response getUnreadFeedActivities(GetUnreadFeedActivitiesRequest getUnreadFeedActivitiesRequest);
+    Response getFeedActivities(GetFeedActivitiesRequest getFeedActivitiesRequest);
+    Response markActivityAsRead(MarkActivityAsReadRequest markActivityAsReadRequest);
+    Response getLatestActivityForFollowees(GetLatestActivityRequest getLatestActivityRequest);
 }
