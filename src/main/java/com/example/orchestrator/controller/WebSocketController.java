@@ -1,5 +1,6 @@
 package com.example.orchestrator.controller;
 
+import com.example.orchestrator.constants.TopicConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -30,7 +31,7 @@ public class WebSocketController {
                 if (latestActivityMap != null && !latestActivityMap.isEmpty()) {
                     String message = latestActivityMap.get("message").toString();
                     if (!message.isEmpty()) {
-                        this.messagingTemplate.convertAndSend("/topic/activities/" + followerId, message);
+                        this.messagingTemplate.convertAndSend(TopicConstants.TOPIC_ACTIVITIES_PREFIX + followerId, message);
                     }
                 }
             }

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpc";
+option java_outer_classname = "StockProto";
+
+package stock;
+
+import "common.proto";
+
+service StockService {
+    rpc GetStockData(GetStockDataRequest) returns (common.Response);
+}
+
+message GetStockDataRequest {
+    string symbol = 1;
+    string timeframe = 2;
+    int32 count = 3;
+}
