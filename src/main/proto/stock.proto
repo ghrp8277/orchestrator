@@ -9,11 +9,32 @@ package stock;
 import "common.proto";
 
 service StockService {
-    rpc GetStockData(GetStockDataRequest) returns (common.Response);
+    rpc GetMarkets (common.Empty) returns (common.Response);
+    rpc GetStocksByMarket (GetStocksByMarketRequest) returns (common.Response);
+    rpc GetStockDataByMarketAndCode (GetStockDataByMarketAndCodeRequest) returns (common.Response);
+    rpc SearchStocksByName (SearchStocksByNameRequest) returns (common.Response);
+    rpc SearchStocksByCode (SearchStocksByCodeRequest) returns (common.Response);
+    rpc SearchStocksByMarket (SearchStocksByMarketRequest) returns (common.Response);
 }
 
-message GetStockDataRequest {
-    string symbol = 1;
-    string timeframe = 2;
-    int32 count = 3;
+message GetStocksByMarketRequest {
+    string marketName = 1;
+}
+
+message GetStockDataByMarketAndCodeRequest {
+    string marketName = 1;
+    string code = 2;
+    string timeframe = 3;
+}
+
+message SearchStocksByNameRequest {
+    string name = 1;
+}
+
+message SearchStocksByCodeRequest {
+    string code = 1;
+}
+
+message SearchStocksByMarketRequest {
+    string market = 1;
 }

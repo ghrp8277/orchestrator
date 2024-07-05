@@ -20,7 +20,17 @@ public class StockGrpcServiceImpl implements StockGrpcService {
     }
 
     @Override
-    public Response getStockData(GetStockDataRequest getStockDataRequest) {
-        return stockServiceBlockingStub.getStockData(getStockDataRequest);
+    public Response getMarkets(Empty empty) {
+        return stockServiceBlockingStub.getMarkets(empty);
+    }
+
+    @Override
+    public Response getStocksByMarket(GetStocksByMarketRequest getStocksByMarketRequest) {
+        return stockServiceBlockingStub.getStocksByMarket(getStocksByMarketRequest);
+    }
+
+    @Override
+    public Response getStockDataByMarketAndCode(GetStockDataByMarketAndCodeRequest getStockDataByMarketAndCodeRequest) {
+        return stockServiceBlockingStub.getStockDataByMarketAndCode(getStockDataByMarketAndCodeRequest);
     }
 }
