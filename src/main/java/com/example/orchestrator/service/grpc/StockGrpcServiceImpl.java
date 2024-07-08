@@ -33,4 +33,19 @@ public class StockGrpcServiceImpl implements StockGrpcService {
     public Response getStockDataByMarketAndCode(GetStockDataByMarketAndCodeRequest getStockDataByMarketAndCodeRequest) {
         return stockServiceBlockingStub.getStockDataByMarketAndCode(getStockDataByMarketAndCodeRequest);
     }
+
+    @Override
+    public Response getAllStocksByMarket(GetAllStocksByMarketRequest getAllStocksByMarketRequest) {
+        return stockServiceBlockingStub.getAllStocksByMarket(getAllStocksByMarketRequest);
+    }
+
+    @Override
+    public Response searchStocksByName(SearchStocksByNameRequest searchStocksByNameRequest) {
+        return stockServiceBlockingStub.searchStocksByName(searchStocksByNameRequest);
+    }
+
+    @Override
+    public Response searchStocksByCode(SearchStocksByCodeRequest searchStocksByCodeRequest) {
+        return stockServiceBlockingStub.searchStocksByCode(searchStocksByCodeRequest);
+    }
 }
