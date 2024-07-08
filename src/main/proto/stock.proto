@@ -11,14 +11,21 @@ import "common.proto";
 service StockService {
     rpc GetMarkets (common.Empty) returns (common.Response);
     rpc GetStocksByMarket (GetStocksByMarketRequest) returns (common.Response);
+    rpc GetAllStocksByMarket (GetAllStocksByMarketRequest) returns (common.Response);
     rpc GetStockDataByMarketAndCode (GetStockDataByMarketAndCodeRequest) returns (common.Response);
     rpc SearchStocksByName (SearchStocksByNameRequest) returns (common.Response);
     rpc SearchStocksByCode (SearchStocksByCodeRequest) returns (common.Response);
-    rpc SearchStocksByMarket (SearchStocksByMarketRequest) returns (common.Response);
 }
 
 message GetStocksByMarketRequest {
     string marketName = 1;
+}
+
+message GetAllStocksByMarketRequest {
+    string marketName = 1;
+    int32 page = 2;
+    int32 size = 3;
+    repeated string sort = 4;
 }
 
 message GetStockDataByMarketAndCodeRequest {
@@ -29,12 +36,14 @@ message GetStockDataByMarketAndCodeRequest {
 
 message SearchStocksByNameRequest {
     string name = 1;
+    int32 page = 2;
+    int32 size = 3;
+    repeated string sort = 4;
 }
 
 message SearchStocksByCodeRequest {
     string code = 1;
-}
-
-message SearchStocksByMarketRequest {
-    string market = 1;
+    int32 page = 2;
+    int32 size = 3;
+    repeated string sort = 4;
 }

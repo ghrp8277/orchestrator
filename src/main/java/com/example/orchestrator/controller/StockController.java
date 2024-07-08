@@ -1,6 +1,8 @@
 package com.example.orchestrator.controller;
 
 import com.example.orchestrator.dto.GetStockDataDto;
+import com.example.orchestrator.dto.PaginationRequestDto;
+import com.example.orchestrator.dto.SortParamsDto;
 import com.example.orchestrator.service.StockService;
 import com.example.orchestrator.util.GrpcResponseHelper;
 import jakarta.validation.Valid;
@@ -36,7 +38,38 @@ public class StockController {
         return grpcResponseHelper.createJsonResponse(response);
     }
 
-    @GetMapping("/markets/{marketName}/securities/{code}")
+    @GetMapping("/markets/{marketName}/securities")
+    public ResponseEntity<String> getAllStocks(
+            @PathVariable String marketName,
+            @Valid @ModelAttribute PaginationRequestDto paginationRequestDto,
+            @Valid @ModelAttribute SortParamsDto sortParamsDto) {
+        Response response = stockService.getAllStocksByMarket(marketName, paginationRequestDto, sortParamsDto);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @GetMapping("/markets/{marketName}/securities/search/name")
+    public ResponseEntity<String> searchStocksByName(
+            @PathVariable String marketName,
+            @RequestParam String name,
+            @Valid @ModelAttribute PaginationRequestDto paginationRequestDto,
+            @Valid @ModelAttribute SortParamsDto sortParamsDto
+    ) {
+        Response response = stockService.searchStocksByName(name, paginationRequestDto, sortParamsDto);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @GetMapping("/markets/{marketName}/securities/search/code")
+    public ResponseEntity<String> searchStocksByCode(
+            @PathVariable String marketName,
+            @RequestParam String code,
+            @Valid @ModelAttribute PaginationRequestDto paginationRequestDto,
+            @Valid @ModelAttribute SortParamsDto sortParamsDto
+    ) {
+        Response response = stockService.searchStocksByCode(code, paginationRequestDto, sortParamsDto);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @GetMapping("/markets/{marketName}/securities/code/{code}/data")
     public ResponseEntity<String> getStockByCode(
             @PathVariable String marketName,
             @PathVariable String code,

@@ -6,4 +6,7 @@ public interface StockGrpcService {
     Response getMarkets(Empty empty);
     Response getStocksByMarket(GetStocksByMarketRequest getStocksByMarketRequest);
     Response getStockDataByMarketAndCode(GetStockDataByMarketAndCodeRequest getStockDataByMarketAndCodeRequest);
+    Response getAllStocksByMarket(GetAllStocksByMarketRequest getAllStocksByMarketRequest);
+    Response searchStocksByName(SearchStocksByNameRequest searchStocksByNameRequest);
+    Response searchStocksByCode(SearchStocksByCodeRequest searchStocksByCodeRequest);
 }
