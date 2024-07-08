@@ -24,4 +24,7 @@ public class CreatePostDto {
 
     @NotEmpty(message = "Content is required")
     private String content;
+
+    @NotNull(message = "Stock code is required")
+    private Long stockCode;
 }
