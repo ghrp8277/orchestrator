@@ -86,6 +86,7 @@ public class SocialService {
                 .setAuthor(createPostDto.getAuthor())
                 .setAccountName(createPostDto.getAccountName())
                 .setContent(createPostDto.getContent())
+                .setStockCode(createPostDto.getStockCode())
                 .build();
 
         Response response = socialGrpcService.createPost(createPostRequest);
