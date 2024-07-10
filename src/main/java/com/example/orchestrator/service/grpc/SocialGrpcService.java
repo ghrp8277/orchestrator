@@ -23,4 +23,5 @@ public interface SocialGrpcService {
     Response getFeedActivities(GetFeedActivitiesRequest getFeedActivitiesRequest);
     Response markActivityAsRead(MarkActivityAsReadRequest markActivityAsReadRequest);
     Response getLatestActivityForFollowees(GetLatestActivityRequest getLatestActivityRequest);
+    Response searchPosts(SearchPostsRequest searchPostsRequest);
 }

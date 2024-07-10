@@ -60,6 +60,11 @@ public class SocialGrpcServiceImpl implements SocialGrpcService {
     }
 
     @Override
+    public Response searchPosts(SearchPostsRequest searchPostsRequest) {
+        return socialServiceBlockingStub.searchPosts(searchPostsRequest);
+    }
+
+    @Override
     public Response incrementPostLikes(IncrementPostLikesRequest incrementPostLikesRequest) {
         return socialServiceBlockingStub.incrementPostLikes(incrementPostLikesRequest);
     }

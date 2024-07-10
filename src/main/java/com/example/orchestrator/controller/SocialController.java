@@ -73,6 +73,14 @@ public class SocialController {
                 .body(grpcResponseHelper.createJsonResponse(response).getBody());
     }
 
+    @GetMapping("/posts/search")
+    public ResponseEntity<String> searchPosts(@Valid @ModelAttribute SearchPostsRequestDto searchRequest) {
+        Response response = socialService.searchPosts(searchRequest);
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
+                .body(grpcResponseHelper.createJsonResponse(response).getBody());
+    }
+
     @PostMapping(value = "/posts/{postId}/like", consumes = "application/json")
     public ResponseEntity<String> incrementPostLikes(@PathVariable Long postId, @Valid @RequestBody LikeDto likeDto) {
         Response response = socialService.incrementPostLikes(postId, likeDto);

@@ -30,6 +30,7 @@ service SocialService {
     rpc GetFeedActivities(GetFeedActivitiesRequest) returns (common.Response);
     rpc MarkActivityAsRead(MarkActivityAsReadRequest) returns (common.Response);
     rpc getLatestActivityForFollowees(GetLatestActivityRequest) returns (common.Response);
+    rpc SearchPosts(SearchPostsRequest) returns (common.Response);
 }
 
 message FollowUserRequest {
@@ -53,6 +54,12 @@ message GetPostByIdRequest {
 message GetPostsRequest {
     uint32 page = 1;
     uint32 pageSize = 2;
+}
+
+message SearchPostsRequest {
+    string keyword = 1;
+    uint32 page = 2;
+    uint32 pageSize = 3;
 }
 
 message CreatePostRequest {

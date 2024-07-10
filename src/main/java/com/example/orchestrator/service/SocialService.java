@@ -78,6 +78,16 @@ public class SocialService {
         return socialGrpcService.getPosts(getPostsRequest);
     }
 
+    public Response searchPosts(SearchPostsRequestDto searchPostsRequestDto) {
+        SearchPostsRequest searchPostsRequest = SearchPostsRequest.newBuilder()
+                .setKeyword(searchPostsRequestDto.getKeyword())
+                .setPage(searchPostsRequestDto.getPage())
+                .setPageSize(searchPostsRequestDto.getPageSize())
+                .build();
+
+        return socialGrpcService.searchPosts(searchPostsRequest);
+    }
+
     public Response createPost(CreatePostDto createPostDto) {
         CreatePostRequest createPostRequest = CreatePostRequest.newBuilder()
                 .setUserId(createPostDto.getUserId())
