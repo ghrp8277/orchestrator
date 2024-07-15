@@ -9,8 +9,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class GetStockDataDto {
+public class TimeframeRequestDto {
     @NotBlank(message = "Timeframe is required")
-    @Pattern(regexp = "^(1month|1year|3years|5years)$", message = "Invalid timeframe. Allowed values are: 1month, 1year, 3years, 5years")
+    @Pattern(regexp = "^(1day|1month|1year|3years|5years)$", message = "Invalid timeframe. Allowed values are: 1day, 1month, 1year, 3years, 5years")
     private String timeframe;
 }

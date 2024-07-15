@@ -1,8 +1,8 @@
 package com.example.orchestrator.service;
 
-import com.example.orchestrator.dto.GetStockDataDto;
 import com.example.orchestrator.dto.PaginationRequestDto;
 import com.example.orchestrator.dto.SortParamsDto;
+import com.example.orchestrator.dto.TimeframeRequestDto;
 import com.example.orchestrator.service.grpc.StockGrpcService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,12 +32,12 @@ public class StockService {
     public Response getStockByCode(
             String marketName,
             String code,
-            GetStockDataDto getStockDataDto
+            TimeframeRequestDto timeframeRequestDto
     ) {
         GetStockDataByMarketAndCodeRequest getStockDataByMarketAndCodeRequest = GetStockDataByMarketAndCodeRequest.newBuilder()
                 .setMarketName(marketName)
                 .setCode(code)
-                .setTimeframe(getStockDataDto.getTimeframe())
+                .setTimeframe(timeframeRequestDto.getTimeframe())
                 .build();
 
         return stockGrpcService.getStockDataByMarketAndCode(getStockDataByMarketAndCodeRequest);
@@ -92,5 +92,49 @@ public class StockService {
                 .build();
 
         return stockGrpcService.searchStocksByCode(searchStocksByCodeRequest);
+    }
+
+    public Response getMovingAverages(
+            String code,
+            TimeframeRequestDto timeframeRequestDto
+    ) {
+        GetMovingAveragesRequest getMovingAveragesRequest = GetMovingAveragesRequest.newBuilder()
+                .setStockCode(code)
+                .setTimeframe(timeframeRequestDto.getTimeframe())
+                .build();
+        return stockGrpcService.getMovingAverages(getMovingAveragesRequest);
+    }
+
+    public Response getBollingerBands(
+            String code,
+            TimeframeRequestDto timeframeRequestDto
+    ) {
+        GetBollingerBandsRequest getBollingerBandsRequest = GetBollingerBandsRequest.newBuilder()
+                .setStockCode(code)
+                .setTimeframe(timeframeRequestDto.getTimeframe())
+                .build();
+        return stockGrpcService.getBollingerBands(getBollingerBandsRequest);
+    }
+
+    public Response getMACD(
+            String code,
+            TimeframeRequestDto timeframeRequestDto
+    ) {
+        GetMACDRequest getMACDRequest = GetMACDRequest.newBuilder()
+                .setStockCode(code)
+                .setTimeframe(timeframeRequestDto.getTimeframe())
+                .build();
+        return stockGrpcService.getMACD(getMACDRequest);
+    }
+
+    public Response getRSI(
+            String code,
+            TimeframeRequestDto timeframeRequestDto
+    ) {
+        GetRSIRequest getRSIRequest = GetRSIRequest.newBuilder()
+                .setStockCode(code)
+                .setTimeframe(timeframeRequestDto.getTimeframe())
+                .build();
+        return stockGrpcService.getRSI(getRSIRequest);
     }
 }

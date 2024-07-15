@@ -9,4 +9,8 @@ public interface StockGrpcService {
     Response getAllStocksByMarket(GetAllStocksByMarketRequest getAllStocksByMarketRequest);
     Response searchStocksByName(SearchStocksByNameRequest searchStocksByNameRequest);
     Response searchStocksByCode(SearchStocksByCodeRequest searchStocksByCodeRequest);
+    Response getMovingAverages(GetMovingAveragesRequest getMovingAveragesRequest);
+    Response getBollingerBands(GetBollingerBandsRequest getBollingerBandsRequest);
+    Response getMACD(GetMACDRequest getMACDRequest);
+    Response getRSI(GetRSIRequest getRSIRequest);
 }
