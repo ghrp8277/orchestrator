@@ -1,5 +1,6 @@
 package com.example.orchestrator.service;
 
+import com.example.orchestrator.dto.MovingAveragePeriodsDto;
 import com.example.orchestrator.dto.PaginationRequestDto;
 import com.example.orchestrator.dto.SortParamsDto;
 import com.example.orchestrator.dto.TimeframeRequestDto;
@@ -96,12 +97,17 @@ public class StockService {
 
     public Response getMovingAverages(
             String code,
+            MovingAveragePeriodsDto movingAveragePeriodsDto,
             TimeframeRequestDto timeframeRequestDto
     ) {
-        GetMovingAveragesRequest getMovingAveragesRequest = GetMovingAveragesRequest.newBuilder()
-                .setStockCode(code)
-                .setTimeframe(timeframeRequestDto.getTimeframe())
-                .build();
+        List<Integer> periodsList = movingAveragePeriodsDto.getPeriods();
+
+        GetMovingAveragesRequest.Builder requestBuilder = GetMovingAveragesRequest.newBuilder()
+            .setStockCode(code)
+            .setTimeframe(timeframeRequestDto.getTimeframe());
+
+        requestBuilder.addAllPeriods(periodsList);
+        GetMovingAveragesRequest getMovingAveragesRequest = requestBuilder.build();
         return stockGrpcService.getMovingAverages(getMovingAveragesRequest);
     }
 

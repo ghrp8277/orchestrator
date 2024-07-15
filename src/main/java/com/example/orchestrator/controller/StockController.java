@@ -1,6 +1,7 @@
 package com.example.orchestrator.controller;
 
 import com.example.orchestrator.constants.HttpConstants;
+import com.example.orchestrator.dto.MovingAveragePeriodsDto;
 import com.example.orchestrator.dto.PaginationRequestDto;
 import com.example.orchestrator.dto.SortParamsDto;
 import com.example.orchestrator.dto.TimeframeRequestDto;
@@ -104,9 +105,10 @@ public class StockController {
     @GetMapping("/securities/{code}/moving-averages")
     public ResponseEntity<String> getMovingAverages(
             @PathVariable String code,
+            @Valid @ModelAttribute MovingAveragePeriodsDto movingAveragePeriodsDto,
             @Valid @ModelAttribute TimeframeRequestDto timeframeRequestDto
     ) {
-        Response response = stockService.getMovingAverages(code, timeframeRequestDto);
+        Response response = stockService.getMovingAverages(code, movingAveragePeriodsDto, timeframeRequestDto);
 
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
