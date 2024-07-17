@@ -37,4 +37,8 @@ public class WebSocketController {
             }
         }
     }
+
+    public void sendLogoutMessage(Long userId) {
+        this.messagingTemplate.convertAndSend(TopicConstants.TOPIC_LOGOUT_PREFIX + userId, "logout");
+    }
 }

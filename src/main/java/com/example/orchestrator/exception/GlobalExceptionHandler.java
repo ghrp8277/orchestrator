@@ -10,6 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import io.grpc.StatusRuntimeException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -45,8 +46,27 @@ public class GlobalExceptionHandler {
             return HttpStatus.NOT_FOUND;
         } else if (ex instanceof ConflictException) {
             return HttpStatus.CONFLICT;
+        } else if (ex instanceof StatusRuntimeException) {
+            return handleGrpcException((StatusRuntimeException) ex);
         } else {
             return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+    }
+
+     private HttpStatus handleGrpcException(StatusRuntimeException ex) {
+        switch (ex.getStatus().getCode()) {
+            case ALREADY_EXISTS:
+                return HttpStatus.CONFLICT;
+            case NOT_FOUND:
+                return HttpStatus.NOT_FOUND;
+            case UNAUTHENTICATED:
+                return HttpStatus.UNAUTHORIZED;
+            case PERMISSION_DENIED:
+                return HttpStatus.FORBIDDEN;
+            case INVALID_ARGUMENT:
+                return HttpStatus.BAD_REQUEST;
+            default:
+                return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
 }

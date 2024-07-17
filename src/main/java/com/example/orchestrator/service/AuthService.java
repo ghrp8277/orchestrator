@@ -28,7 +28,6 @@ public class AuthService {
         Response response = userGrpcService.authenticateUser(request);
         Map<String, Object> result = jsonUtil.getMapByKey(response.getResult(), "result");
         boolean authenticated = (boolean) result.get("authenticated");
-
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("authenticated", authenticated);
 

@@ -2,6 +2,7 @@ package com.example.orchestrator.service;
 
 import com.example.grpc.*;
 import com.example.orchestrator.dto.*;
+import com.example.orchestrator.service.grpc.AuthGrpcService;
 import com.example.orchestrator.service.grpc.UserGrpcService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class UserService {
     private final UserGrpcService userGrpcService;
+    private final AuthGrpcService authGrpcService;
     private final FileUploadService fileUploadService;
 
     public Response registerUser(UserDto userDto, MultipartFile profileImage) {
@@ -51,7 +53,15 @@ public class UserService {
                 .setCurrentPassword(passwordUpdateDto.getCurrentPassword())
                 .setNewPassword(passwordUpdateDto.getNewPassword())
                 .build();
-        return userGrpcService.updatePassword(request);
+
+        LogoutRequest logoutRequest = LogoutRequest.newBuilder()
+                .setUserId(passwordUpdateDto.getUserId())
+                .build();
+
+        Response response = userGrpcService.updatePassword(request);
+        authGrpcService.logout(logoutRequest);
+
+        return response;
     }
 
     public Response findUser(FindUserDto findUserDto) {

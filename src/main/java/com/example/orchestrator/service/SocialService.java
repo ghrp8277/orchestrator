@@ -4,6 +4,7 @@ import com.example.grpc.*;
 import com.example.orchestrator.controller.WebSocketController;
 import com.example.orchestrator.dto.*;
 import com.example.orchestrator.service.grpc.SocialGrpcService;
+import com.example.orchestrator.service.grpc.UserGrpcService;
 import com.example.orchestrator.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,28 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SocialService {
     private final SocialGrpcService socialGrpcService;
+    private final UserGrpcService userGrpcService;
     private final WebSocketController webSocketController;
     private final JsonUtil jsonUtil;
 
+    public Long extractUserId(Long id) {
+        FindUserRequest request = FindUserRequest.newBuilder()
+                .setUserId(id)
+                .build();
+
+        Response response = userGrpcService.findUser(request);
+        String result = response.getResult();
+        Map<String, Object> user = jsonUtil.getMapByKey(result, "user");
+        Number userIdNumber = (Number) user.get("id");
+        return userIdNumber.longValue();
+    }
+
     public Response followUser(FollowUserDto followUserDto) {
+        Long userId = extractUserId(followUserDto.getFolloweeId());
+
         FollowUserRequest followUserRequest = FollowUserRequest.newBuilder()
                 .setFollowerId(followUserDto.getFollowerId())
-                .setFolloweeId(followUserDto.getFolloweeId())
+                .setFolloweeId(userId)
                 .build();
 
         Response response = socialGrpcService.followUser(followUserRequest);
@@ -33,9 +49,11 @@ public class SocialService {
     }
 
     public Response unfollowUser(UnFollowUserDto unFollowUserDto) {
+        Long userId = extractUserId(unFollowUserDto.getFolloweeId());
+
         UnfollowRequest unfollowRequest = UnfollowRequest.newBuilder()
                 .setFollowerId(unFollowUserDto.getFollowerId())
-                .setFolloweeId(unFollowUserDto.getFolloweeId())
+                .setFolloweeId(userId)
                 .build();
 
         Response response = socialGrpcService.unfollowUser(unfollowRequest);
@@ -89,9 +107,10 @@ public class SocialService {
     }
 
     public Response createPost(CreatePostDto createPostDto) {
+        Long userId = extractUserId(createPostDto.getUserId());
+
         CreatePostRequest createPostRequest = CreatePostRequest.newBuilder()
-                .setUserId(createPostDto.getUserId())
-                .setUserId(createPostDto.getUserId())
+                .setUserId(userId)
                 .setTitle(createPostDto.getTitle())
                 .setAuthor(createPostDto.getAuthor())
                 .setAccountName(createPostDto.getAccountName())
@@ -101,153 +120,173 @@ public class SocialService {
 
         Response response = socialGrpcService.createPost(createPostRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(createPostDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response updatePost(Long postId, UpdatePostDto updatePostDto) {
+        Long userId = extractUserId(updatePostDto.getUserId());
+
         UpdatePostRequest updatePostRequest = UpdatePostRequest.newBuilder()
                 .setPostId(postId)
-                .setUserId(updatePostDto.getUserId())
+                .setUserId(userId)
                 .setTitle(updatePostDto.getTitle())
                 .setContent(updatePostDto.getContent())
                 .build();
 
         Response response = socialGrpcService.updatePost(updatePostRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(updatePostDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response deletePost(Long postId, DeletePostDto deletePostDto) {
+        Long userId = extractUserId(deletePostDto.getUserId());
+
         DeletePostRequest deletePostRequest = DeletePostRequest.newBuilder()
                 .setPostId(postId)
-                .setUserId(deletePostDto.getUserId())
+                .setUserId(userId)
                 .build();
 
         Response response = socialGrpcService.deletePost(deletePostRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(deletePostDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response incrementPostLikes(Long postId, LikeDto likeDto) {
+        Long userId = extractUserId(likeDto.getUserId());
+
         IncrementPostLikesRequest incrementPostLikesRequest = IncrementPostLikesRequest.newBuilder()
                 .setPostId(postId)
-                .setUserId(likeDto.getUserId())
+                .setUserId(userId)
                 .build();
 
         Response response = socialGrpcService.incrementPostLikes(incrementPostLikesRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(likeDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response decrementPostLikes(Long postId, LikeDto likeDto) {
+        Long userId = extractUserId(likeDto.getUserId());
+
         DecrementPostLikesRequest decrementPostLikesRequest = DecrementPostLikesRequest.newBuilder()
                 .setPostId(postId)
-                .setUserId(likeDto.getUserId())
+                .setUserId(userId)
                 .build();
 
         Response response = socialGrpcService.decrementPostLikes(decrementPostLikesRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(likeDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response createComment(Long postId, CreateCommentDto createCommentDto) {
+        Long userId = extractUserId(createCommentDto.getUserId());
+
         CreateCommentRequest createCommentRequest = CreateCommentRequest.newBuilder()
                 .setPostId(postId)
-                .setUserId(createCommentDto.getUserId())
+                .setUserId(userId)
                 .setContent(createCommentDto.getContent())
                 .build();
 
         Response response = socialGrpcService.createComment(createCommentRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(createCommentDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response updateComment(Long commentId, UpdateCommentDto updateCommentDto) {
+        Long userId = extractUserId(updateCommentDto.getUserId());
+
         UpdateCommentRequest updateCommentRequest = UpdateCommentRequest.newBuilder()
                 .setCommentId(commentId)
-                .setUserId(updateCommentDto.getUserId())
+                .setUserId(userId)
                 .setContent(updateCommentDto.getContent())
                 .build();
 
         Response response = socialGrpcService.updateComment(updateCommentRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(updateCommentDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response deleteComment(Long commentId, DeleteCommentDto deleteCommentDto) {
+        Long userId = extractUserId(deleteCommentDto.getUserId());
+
         DeleteCommentRequest deleteCommentRequest = DeleteCommentRequest.newBuilder()
                 .setCommentId(commentId)
-                .setUserId(deleteCommentDto.getUserId())
+                .setUserId(userId)
                 .build();
 
         Response response = socialGrpcService.deleteComment(deleteCommentRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(deleteCommentDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response createReply(Long postId, Long parentCommentId, CreateReplyDto createReplyDto) {
+        Long userId = extractUserId(createReplyDto.getUserId());
+
         CreateReplyRequest createReplyRequest = CreateReplyRequest.newBuilder()
                 .setPostId(postId)
-                .setUserId(createReplyDto.getUserId())
+                .setUserId(userId)
                 .setParentCommentId(parentCommentId)
                 .setContent(createReplyDto.getContent())
                 .build();
 
         Response response = socialGrpcService.createReply(createReplyRequest);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(createReplyDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response incrementCommentLikes(Long commentId, LikeDto likeDto) {
+        Long userId = extractUserId(likeDto.getUserId());
+
         IncrementCommentLikesRequest request = IncrementCommentLikesRequest.newBuilder()
                 .setCommentId(commentId)
-                .setUserId(likeDto.getUserId())
+                .setUserId(userId)
                 .build();
 
         Response response = socialGrpcService.incrementCommentLikes(request);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(likeDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;
     }
 
     public Response decrementCommentLikes(Long commentId, LikeDto likeDto) {
+        Long userId = extractUserId(likeDto.getUserId());
+
         DecrementCommentLikesRequest request = DecrementCommentLikesRequest.newBuilder()
                 .setCommentId(commentId)
-                .setUserId(likeDto.getUserId())
+                .setUserId(userId)
                 .build();
 
         Response response = socialGrpcService.decrementCommentLikes(request);
         if (!responseHasError(response)) {
-            List<Long> followers = getFollowers(likeDto.getUserId());
+            List<Long> followers = getFollowers(userId);
             webSocketController.sendActivityUpdate(followers, this::getLatestActivityForFollowees);
         }
         return response;

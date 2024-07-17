@@ -1,6 +1,8 @@
 package com.example.orchestrator.config;
 
 import com.example.orchestrator.constants.SecurityPathConstants;
+import com.example.orchestrator.handler.CustomLogoutHandler;
+import com.example.orchestrator.handler.CustomLogoutSuccessHandler;
 import com.example.orchestrator.security.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +38,12 @@ public class SecurityConfig {
             )
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
             .csrf(AbstractHttpConfigurer::disable);
+        // TODO: 추후에 작업 필요시 해제
+//            .logout((logout) -> logout
+//                .logoutUrl(SecurityPathConstants.AUTH_LOGOUT)
+//                .addLogoutHandler(new CustomLogoutHandler())
+//                .logoutSuccessHandler(new CustomLogoutSuccessHandler())
+//            );
 
         return http.build();
     }
