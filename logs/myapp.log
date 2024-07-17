@@ -1,0 +1,21 @@
+2024-07-18 01:34:40 [main] INFO  c.e.o.OrchestratorApplication - Starting OrchestratorApplication using Java 21.0.3 with PID 119868 (C:\Users\pil48\Project\Orchestrator\build\classes\java\main started by pil48 in C:\Users\pil48\Project\Orchestrator)
+2024-07-18 01:34:40 [main] DEBUG c.e.o.OrchestratorApplication - Running with Spring Boot v3.3.1, Spring v6.1.10
+2024-07-18 01:34:40 [main] INFO  c.e.o.OrchestratorApplication - No active profile set, falling back to 1 default profile: "default"
+2024-07-18 01:34:41 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-07-18 01:34:41 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-07-18 01:34:41 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-18 01:34:41 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/v1] - Initializing Spring embedded WebApplicationContext
+2024-07-18 01:34:41 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1546 ms
+2024-07-18 01:34:42 [main] DEBUG c.e.o.security.JwtRequestFilter - Filter 'jwtRequestFilter' configured for use
+2024-07-18 01:34:42 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailService
+2024-07-18 01:34:42 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2024-07-18 01:34:43 [main] WARN  o.s.b.a.t.ThymeleafAutoConfiguration$DefaultTemplateResolverConfiguration - Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2024-07-18 01:34:43 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/v1'
+2024-07-18 01:34:43 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2024-07-18 01:34:43 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2a65e237]]
+2024-07-18 01:34:43 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2024-07-18 01:34:43 [main] INFO  c.e.o.OrchestratorApplication - Started OrchestratorApplication in 3.589 seconds (process running for 4.297)
+2024-07-18 01:34:43 [RMI TCP Connection(1)-192.168.0.212] INFO  o.a.c.c.C.[Tomcat].[localhost].[/v1] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-18 01:34:43 [RMI TCP Connection(1)-192.168.0.212] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-07-18 01:34:43 [RMI TCP Connection(1)-192.168.0.212] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-07-18 01:35:43 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
