@@ -1,5 +1,8 @@
 ![image](https://github.com/user-attachments/assets/d959759f-bd80-4182-ab76-739423653e77)
 
+![image](https://github.com/user-attachments/assets/b37b8dda-5374-46e3-8a6a-2c491eaf1504)
+
+
 # 프로젝트 특징
 
 ## **실시간 주가 정보 지표 생성**
