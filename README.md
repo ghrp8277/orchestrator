@@ -25,7 +25,7 @@ Kubernetes를 활용하여 클라우드 네이티브 애플리케이션을 배�
 ### Orchestrator
 - **역할**: 전체 시스템을 조율하는 서비스로, 여러 인스턴스로 구성되어 있으며, gRPC를 통해 다른 마이크로 서비스와 통신합니다.
 
-### UserService
+### [UserService](https://github.com/ghrp8277/user_service)
 - **역할**: 사용자 정보를 관리합니다.
 - **데이터베이스**: MySQL
 
@@ -33,19 +33,19 @@ Kubernetes를 활용하여 클라우드 네이티브 애플리케이션을 배�
 - **역할**: 인증 및 권한 부여를 담당합니다.
 - **데이터베이스**: MySQL
 
-### EmailService
+### [EmailService](https://github.com/ghrp8277/email_service)
 - **역할**: 이메일 전송과 관련된 기능을 제공합니다.
 - **데이터베이스**: MySQL, Redis
 
-### SocialService
+### [SocialService](https://github.com/ghrp8277/social_service)
 - **역할**: 소셜 기능을 관리합니다.
 - **데이터베이스**: MySQL
 
-### StockService
+### [StockService](https://github.com/ghrp8277/stock_service)
 - **역할**: 주식 정보를 관리합니다.
 - **데이터베이스**: MySQL (Read Slave)
 
-### BatchService
+### [BatchService](https://github.com/ghrp8277/batch_service)
 - **역할**: 배치 작업을 처리하고 주가 데이터를 크롤링하여 저장합니다.
 - **데이터베이스**: MySQL (Write Master)
 
