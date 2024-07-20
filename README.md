@@ -1,5 +1,6 @@
+# 프로젝트 설계도
 ![image](https://github.com/user-attachments/assets/d959759f-bd80-4182-ab76-739423653e77)
-
+# ERD
 ![image](https://github.com/user-attachments/assets/b37b8dda-5374-46e3-8a6a-2c491eaf1504)
 
 
@@ -19,35 +20,23 @@ Kubernetes를 활용하여 클라우드 네이티브 애플리케이션을 배�
 
 # 아키텍처 구성 요소
 
-### NGINX
-- **역할**: 로드 밸런싱을 통해 트래픽을 분산시킵니다.
-
 ### Orchestrator
 - **역할**: 전체 시스템을 조율하는 서비스로, 여러 인스턴스로 구성되어 있으며, gRPC를 통해 다른 마이크로 서비스와 통신합니다.
 
 ### [UserService](https://github.com/ghrp8277/user_service)
 - **역할**: 사용자 정보를 관리합니다.
-- **데이터베이스**: MySQL
 
 ### [AuthService](https://github.com/ghrp8277/auth_service)
 - **역할**: 인증 및 권한 부여를 담당합니다.
-- **데이터베이스**: MySQL
 
 ### [EmailService](https://github.com/ghrp8277/email_service)
 - **역할**: 이메일 전송과 관련된 기능을 제공합니다.
-- **데이터베이스**: MySQL, Redis
 
 ### [SocialService](https://github.com/ghrp8277/social_service)
 - **역할**: 소셜 기능을 관리합니다.
-- **데이터베이스**: MySQL
 
 ### [StockService](https://github.com/ghrp8277/stock_service)
 - **역할**: 주식 정보를 관리합니다.
-- **데이터베이스**: MySQL (Read Slave)
 
 ### [BatchService](https://github.com/ghrp8277/batch_service)
 - **역할**: 배치 작업을 처리하고 주가 데이터를 크롤링하여 저장합니다.
-- **데이터베이스**: MySQL (Write Master)
-
-### 외부 연동
-- **Naver 증권 API**를 활용하여 주가 데이터를 크롤링하고 HTTP API 응답을 처리합니다.
