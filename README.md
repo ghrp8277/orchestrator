@@ -28,7 +28,7 @@ Kubernetes를 활용하여 클라우드 네이티브 애플리케이션을 배�
 ### UserService
 - **역할**: 사용자 정보를 관리합니다.
 - **데이터베이스**: MySQL
-[MySQL](https://www.mysql.com/)
+[MySQL][([https://www.mysql.com/](https://github.com/ghrp8277/auth_service))](https://github.com/ghrp8277/auth_service)
 ### AuthService
 - **역할**: 인증 및 권한 부여를 담당합니다.
 - **데이터베이스**: MySQL
