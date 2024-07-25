@@ -4,8 +4,12 @@ import com.example.grpc.*;
 import com.example.orchestrator.dto.EmailSendDto;
 import com.example.orchestrator.dto.EmailVerifyCodeDto;
 import com.example.orchestrator.service.grpc.EmailGrpcService;
+import com.example.orchestrator.service.grpc.UserGrpcService;
+import com.example.orchestrator.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -14,7 +18,6 @@ public class EmailService {
 
     public Response emailSend(EmailSendDto emailSendDto) {
         EmailSendRequest request = EmailSendRequest.newBuilder()
-                .setUserId(emailSendDto.getUserId())
                 .setEmail(emailSendDto.getEmail())
                 .build();
 
@@ -23,7 +26,6 @@ public class EmailService {
 
     public Response verifyEmailCode(EmailVerifyCodeDto emailVerifyCodeDto) {
         VerifyEmailCodeRequest request = VerifyEmailCodeRequest.newBuilder()
-                .setUserId(emailVerifyCodeDto.getUserId())
                 .setEmail(emailVerifyCodeDto.getEmail())
                 .setCode(emailVerifyCodeDto.getCode())
                 .build();

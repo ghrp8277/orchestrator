@@ -10,9 +10,6 @@ import jakarta.validation.constraints.NotNull;
 @Setter
 @ToString
 public class EmailSendDto {
-    @NotNull(message = "User ID is required")
-    private Long userId;
-
     @NotNull(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;

@@ -11,9 +11,6 @@ import jakarta.validation.constraints.NotNull;
 @Setter
 @ToString
 public class EmailVerifyCodeDto {
-    @NotNull(message = "User ID is required")
-    private long userId;
-
     @NotNull(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
