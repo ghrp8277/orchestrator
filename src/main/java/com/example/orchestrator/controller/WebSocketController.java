@@ -9,16 +9,29 @@ import com.example.orchestrator.util.JsonUtil;
 import java.util.Map;
 import java.util.List;
 import java.util.function.Function;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import com.example.orchestrator.service.KafkaProducerService;
 
 @Controller
 public class WebSocketController {
     private final SimpMessagingTemplate messagingTemplate;
     private final JsonUtil jsonUtil;
+    private final KafkaProducerService kafkaProducerService;
 
     @Autowired
-    public WebSocketController(SimpMessagingTemplate messagingTemplate, JsonUtil jsonUtil) {
+    public WebSocketController(SimpMessagingTemplate messagingTemplate, JsonUtil jsonUtil, KafkaProducerService kafkaProducerService) {
         this.messagingTemplate = messagingTemplate;
         this.jsonUtil = jsonUtil;
+        this.kafkaProducerService = kafkaProducerService;
+    }
+
+    @MessageMapping("/initialData")
+    public void handleInitialDataRequest(Map<String, String> request) {
+        String marketName = request.get("marketName");
+        String code = request.get("code");
+        String timeframe = request.get("timeframe");
+
+        kafkaProducerService.sendInitialDataRequest(marketName, code, timeframe);
     }
 
     public void sendActivityUpdate(List<Long> followerIds, Function<Long, Response> getLatestActivityForFollowees) {
