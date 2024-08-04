@@ -26,5 +26,5 @@ public class CreatePostDto {
     private String content;
 
     @NotNull(message = "Stock code is required")
-    private Long stockCode;
+    private String stockCode;
 }
