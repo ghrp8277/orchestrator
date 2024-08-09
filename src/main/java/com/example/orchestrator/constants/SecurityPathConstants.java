@@ -7,8 +7,17 @@ public class SecurityPathConstants {
     public static final String AUTH_REGISTER = "/auth/register";
     public static final String USER_CHECK_USERNAME = "/users/check-username";
     public static final String USER_REGISTER = "/users/register";
+    public static final String EMAIL_SEND = "/email/send";
+    public static final String EMAIL_VERIFY = "/email/verify";
 
     public static List<String> getPublicPaths() {
-        return List.of(AUTH_LOGIN, AUTH_REGISTER, USER_CHECK_USERNAME, USER_REGISTER);
+        return List.of(
+                AUTH_LOGIN,
+                AUTH_REGISTER,
+                USER_CHECK_USERNAME,
+                USER_REGISTER,
+                EMAIL_SEND,
+                EMAIL_VERIFY
+        );
     }
 }
