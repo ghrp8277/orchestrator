@@ -6,10 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import com.example.grpc.*;
 import com.example.orchestrator.util.JsonUtil;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.function.Function;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import com.example.orchestrator.service.KafkaProducerService;
 
 @Controller
@@ -25,13 +29,15 @@ public class WebSocketController {
         this.kafkaProducerService = kafkaProducerService;
     }
 
-    @MessageMapping("/initialData")
-    public void handleInitialDataRequest(Map<String, String> request) {
-        String marketName = request.get("marketName");
-        String code = request.get("code");
+    @MessageMapping("/initialData/{marketName}/{code}/{uuid}")
+    public void handleInitialDataRequest(
+            @DestinationVariable String marketName,
+            @DestinationVariable String code,
+            @DestinationVariable String uuid,
+            @Payload Map<String, String> request
+    ) {
         String timeframe = request.get("timeframe");
-
-        kafkaProducerService.sendInitialDataRequest(marketName, code, timeframe);
+        kafkaProducerService.sendInitialDataRequest(marketName, code, timeframe, uuid);
     }
 
     public void sendActivityUpdate(List<Long> followerIds, Function<Long, Response> getLatestActivityForFollowees) {

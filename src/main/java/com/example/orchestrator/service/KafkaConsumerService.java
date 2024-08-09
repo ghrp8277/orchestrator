@@ -23,7 +23,8 @@ public class KafkaConsumerService {
         Map<String, String> initialStockData = jsonUtil.parseJson(message, Map.class);
         String marketName = initialStockData.get("marketName");
         String code = initialStockData.get("code");
-        messagingTemplate.convertAndSend(TopicConstants.TOPIC_INITIAL_DATA_PREFIX + marketName + "/" + code + "/", initialStockData);
+        String uuid = initialStockData.get("uuid");
+        messagingTemplate.convertAndSend(TopicConstants.TOPIC_INITIAL_DATA_PREFIX + marketName + "/" + code + "/" + uuid, initialStockData);
     }
 
     @KafkaListener(topics = KafkaConstants.ERROR_TOPIC, groupId = KafkaConstants.INITIAL_DATA_GROUP_ID)
@@ -37,6 +38,6 @@ public class KafkaConsumerService {
         Map<String, String> dailyData = jsonUtil.parseJson(message, Map.class);
         String marketName = dailyData.get("marketName");
         String code = dailyData.get("code");
-        messagingTemplate.convertAndSend(TopicConstants.TOPIC_DAILY_STOCK_PREFIX + marketName + "/" + code + "/", dailyData);
+        messagingTemplate.convertAndSend(TopicConstants.TOPIC_DAILY_STOCK_PREFIX + marketName + "/" + code, dailyData);
     }
 }

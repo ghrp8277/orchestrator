@@ -15,12 +15,13 @@ public class KafkaProducerService {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendInitialDataRequest(String marketName, String code, String timeframe) {
+    public void sendInitialDataRequest(String marketName, String code, String timeframe, String uuid) {
         try {
             Map<String, String> messageMap = Map.of(
                 "marketName", marketName,
                 "code", code,
-                "timeframe", timeframe
+                "timeframe", timeframe,
+                "uuid", uuid
             );
 
             String message = objectMapper.writeValueAsString(messageMap);

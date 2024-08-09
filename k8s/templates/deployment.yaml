@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: spring-container
-          image: 192.168.0.212:5555/spring-orchestrator:20240808-153139
+          image: 192.168.0.212:5555/spring-orchestrator:20240809-215513
           ports:
             - containerPort: 3000
           volumeMounts:
