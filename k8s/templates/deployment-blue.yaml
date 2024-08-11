@@ -24,6 +24,18 @@ spec:
           volumeMounts:
             - name: orchestrator-logs
               mountPath: {{ .Values.log.mountPath }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 30
 
         - name: fluent-bit
           image: 192.168.0.212:5555/fluent/fluent-bit
