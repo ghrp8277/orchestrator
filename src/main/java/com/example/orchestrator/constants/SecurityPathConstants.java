@@ -10,6 +10,8 @@ public class SecurityPathConstants {
     private static final String EMAIL_SEND = "/email/send";
     private static final String EMAIL_VERIFY = "/email/verify";
     private static final String STOCK_WILDCARD = "/stock/**";
+    private static final String HEALTH_CHECK = "/healthz";
+    private static final String READINESS_CHECK = "/readyz";
 
     public static List<String> getPublicPaths() {
         return List.of(
@@ -19,7 +21,9 @@ public class SecurityPathConstants {
                 USER_REGISTER,
                 EMAIL_SEND,
                 EMAIL_VERIFY,
-                STOCK_WILDCARD
+                STOCK_WILDCARD,
+                HEALTH_CHECK,
+                READINESS_CHECK
         );
     }
 }
