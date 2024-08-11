@@ -9,7 +9,7 @@ public class SecurityPathConstants {
     private static final String USER_REGISTER = "/users/register";
     private static final String EMAIL_SEND = "/email/send";
     private static final String EMAIL_VERIFY = "/email/verify";
-    private static final String STOCK_WILDCARD = "/stock/*";
+    private static final String STOCK_WILDCARD = "/stock/**";
 
     public static List<String> getPublicPaths() {
         return List.of(
