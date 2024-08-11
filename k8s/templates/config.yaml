@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: orchestrator-fluent-bit-config
+  name: orchestrator-fluent-bit-config-{{ .Values.environment }}
   namespace: prod
 data:
   fluent-bit.conf: |

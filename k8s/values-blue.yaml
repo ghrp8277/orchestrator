@@ -1,0 +1,11 @@
+environment: blue
+imageTag: "20240812-064627"
+service:
+  name: orchestrator-service-blue
+fluentBitService:
+  name: orchestrator-fluent-bit-service-blue
+ingress:
+  name: orchestrator-ingress-blue
+  serviceName: orchestrator-service-blue
+createBlueDeployment: true
+createGreenDeployment: false

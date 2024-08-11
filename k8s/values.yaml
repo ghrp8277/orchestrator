@@ -5,3 +5,6 @@ fluentBit:
 
 log:
   mountPath: /usr/src/main/logs
+
+createBlueDeployment: true
+createGreenDeployment: false

@@ -1,27 +1,29 @@
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: orchestrator-service
+  name: {{ .Values.service.name }}
   namespace: prod
 spec:
   selector:
     app: orchestrator
+    version: {{ .Values.environment }}
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
       nodePort: 30080
   type: NodePort
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: orchestrator-fluent-bit-service
+  name: {{ .Values.fluentBitService.name }}
   namespace: prod
 spec:
   selector:
     app: orchestrator
+    version: {{ .Values.environment }}
   ports:
     - name: tcp
       protocol: TCP

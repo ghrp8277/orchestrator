@@ -1,21 +1,24 @@
+{{- if .Values.createGreenDeployment }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orchestrator-deployment
+  name: orchestrator-deployment-green
   namespace: prod
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: orchestrator
+      version: green
   template:
     metadata:
       labels:
         app: orchestrator
+        version: green
     spec:
       containers:
         - name: spring-container
-          image: 192.168.0.212:5555/spring-orchestrator:20240811-171542
+          image: 192.168.0.212:5555/spring-orchestrator:{{ .Values.imageTag }}
           ports:
             - containerPort: 3000
           volumeMounts:
@@ -34,7 +37,8 @@ spec:
       volumes:
         - name: orchestrator-logs
           persistentVolumeClaim:
-            claimName: orchestrator-logs-pvc
+            claimName: orchestrator-logs-pvc-green
         - name: orchestrator-fluent-config
           configMap:
-            name: orchestrator-fluent-bit-config
+            name: orchestrator-fluent-bit-config-green
+{{- end }}

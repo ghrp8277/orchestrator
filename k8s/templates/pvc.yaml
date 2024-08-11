@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: orchestrator-logs-pvc
+  name: orchestrator-logs-pvc-{{ .Values.environment }}
   namespace: prod
 spec:
   accessModes:
