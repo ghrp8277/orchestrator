@@ -1,15 +1,11 @@
 package com.example.orchestrator.service;
 
 import com.example.grpc.*;
-import com.example.orchestrator.dto.EmailSendDto;
-import com.example.orchestrator.dto.EmailVerifyCodeDto;
+import com.example.orchestrator.dto.request.email.EmailSendDto;
+import com.example.orchestrator.dto.request.email.EmailVerifyCodeDto;
 import com.example.orchestrator.service.grpc.EmailGrpcService;
-import com.example.orchestrator.service.grpc.UserGrpcService;
-import com.example.orchestrator.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor

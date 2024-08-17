@@ -1,18 +1,20 @@
 package com.example.orchestrator.controller;
 
 import com.example.grpc.Response;
-import com.example.orchestrator.constants.HttpConstants;
 import com.example.orchestrator.dto.*;
+import com.example.orchestrator.dto.request.common.PaginationRequestDto;
+import com.example.orchestrator.dto.request.social.*;
 import com.example.orchestrator.service.SocialService;
 import com.example.orchestrator.util.GrpcResponseHelper;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.CacheControl;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/social")
@@ -46,7 +48,7 @@ public class SocialController {
     }
 
     @PutMapping(value = "/posts/{postId}", consumes = "application/json")
-    public ResponseEntity<String> updatePost(@PathVariable Long postId, @Valid @RequestBody UpdatePostDto updatePostDto) {
+    public ResponseEntity<String> updatePost(@PathVariable @NotNull Long postId, @Valid @RequestBody UpdatePostDto updatePostDto) {
         Response response = socialService.updatePost(postId, updatePostDto);
         return grpcResponseHelper.createJsonResponse(response);
     }
@@ -57,28 +59,36 @@ public class SocialController {
         return grpcResponseHelper.createJsonResponse(response);
     }
 
-    @GetMapping("/posts/{postId}")
-    public ResponseEntity<String> getPostById(@PathVariable Long postId) {
-        Response response = socialService.getPostById(postId);
-        return ResponseEntity.ok()
-                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
-                .body(grpcResponseHelper.createJsonResponse(response).getBody());
+    @GetMapping("/posts/detail/{postId}")
+    public ResponseEntity<String> getPostById(
+            @PathVariable @NotNull @Positive Long postId,
+            @RequestHeader("user-id") @NotNull Long userId
+    ) {
+        Response response = socialService.getPostById(postId, userId);
+        return grpcResponseHelper.createJsonResponse(response);
     }
 
-    @GetMapping("/posts")
-    public ResponseEntity<String> getPosts(@Valid @ModelAttribute PaginationRequestDto paginationRequest) {
-        Response response = socialService.getPosts(paginationRequest);
-        return ResponseEntity.ok()
-                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
-                .body(grpcResponseHelper.createJsonResponse(response).getBody());
+    @GetMapping("/posts/public/detail/{postId}")
+    public ResponseEntity<String> getPostByIdAndNotLogin(
+            @PathVariable @NotNull @Positive Long postId
+    ) {
+        Response response = socialService.getPostByIdAndNotLogin(postId);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @GetMapping("/posts/symbol/{code}")
+    public ResponseEntity<String> getPosts(
+            @PathVariable @NotBlank String code,
+            @Valid @ModelAttribute PaginationRequestDto paginationRequest
+    ) {
+        Response response = socialService.getPosts(code, paginationRequest);
+        return grpcResponseHelper.createJsonResponse(response);
     }
 
     @GetMapping("/posts/search")
     public ResponseEntity<String> searchPosts(@Valid @ModelAttribute SearchPostsRequestDto searchRequest) {
         Response response = socialService.searchPosts(searchRequest);
-        return ResponseEntity.ok()
-                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
-                .body(grpcResponseHelper.createJsonResponse(response).getBody());
+        return grpcResponseHelper.createJsonResponse(response);
     }
 
     @PostMapping(value = "/posts/{postId}/like", consumes = "application/json")
@@ -132,22 +142,29 @@ public class SocialController {
     @GetMapping("/activities")
     public ResponseEntity<String> getFeedActivities(@Valid @ModelAttribute PaginationRequestDto paginationRequest, @RequestParam Long userId) {
         Response response = socialService.getFeedActivities(userId, paginationRequest);
-        return ResponseEntity.ok()
-                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
-                .body(grpcResponseHelper.createJsonResponse(response).getBody());
+        return grpcResponseHelper.createJsonResponse(response);
     }
 
     @GetMapping("/activities/unread")
-    public ResponseEntity<String> getUnreadFeedActivities(@Valid @ModelAttribute PaginationRequestDto paginationRequest, @RequestParam Long userId) {
+    public ResponseEntity<String> getUnreadFeedActivities(
+            @RequestHeader("user-id") @NotNull Long userId,
+            @Valid @ModelAttribute PaginationRequestDto paginationRequest
+    ) {
         Response response = socialService.getUnreadFeedActivities(userId, paginationRequest);
-        return ResponseEntity.ok()
-                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
-                .body(grpcResponseHelper.createJsonResponse(response).getBody());
+        return grpcResponseHelper.createJsonResponse(response);
     }
 
     @PostMapping("/activities/{activityId}/mark-read")
     public ResponseEntity<String> markActivityAsRead(@PathVariable Long activityId) {
         Response response = socialService.markActivityAsRead(activityId);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @GetMapping("/unfollowed-users")
+    public ResponseEntity<String> getUnfollowedUsers(
+            @RequestHeader("user-id") @NotNull Long userId,
+            @Valid @ModelAttribute PaginationRequestDto paginationRequest) {
+        Response response = socialService.getUnfollowedUsers(userId, paginationRequest);
         return grpcResponseHelper.createJsonResponse(response);
     }
 }

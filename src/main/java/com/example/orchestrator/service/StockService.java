@@ -1,8 +1,8 @@
 package com.example.orchestrator.service;
 
 import com.example.orchestrator.dto.MovingAveragePeriodsDto;
-import com.example.orchestrator.dto.PaginationRequestDto;
-import com.example.orchestrator.dto.SortParamsDto;
+import com.example.orchestrator.dto.request.common.PaginationRequestDto;
+import com.example.orchestrator.dto.request.stock.SortParamsDto;
 import com.example.orchestrator.dto.TimeframeRequestDto;
 import com.example.orchestrator.service.grpc.StockGrpcService;
 import lombok.RequiredArgsConstructor;

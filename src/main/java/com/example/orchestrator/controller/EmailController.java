@@ -1,6 +1,6 @@
 package com.example.orchestrator.controller;
-import com.example.orchestrator.dto.EmailSendDto;
-import com.example.orchestrator.dto.EmailVerifyCodeDto;
+import com.example.orchestrator.dto.request.email.EmailSendDto;
+import com.example.orchestrator.dto.request.email.EmailVerifyCodeDto;
 import com.example.orchestrator.service.EmailService;
 import com.example.orchestrator.util.GrpcResponseHelper;
 import jakarta.validation.Valid;

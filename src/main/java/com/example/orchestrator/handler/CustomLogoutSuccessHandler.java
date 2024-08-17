@@ -12,7 +12,17 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         response.setStatus(HttpServletResponse.SC_OK);
-        response.sendRedirect("/login");
+        String redirectUrl = request.getHeader("Origin");
+        if (redirectUrl == null || redirectUrl.isEmpty()) {
+            redirectUrl = request.getHeader("Referer");
+            if (redirectUrl != null && !redirectUrl.isEmpty()) {
+                redirectUrl = redirectUrl.substring(0, redirectUrl.indexOf("/", redirectUrl.indexOf("://") + 3));
+            } else {
+                redirectUrl = "http://localhost:3001";
+            }
+        }
+
+        response.sendRedirect(redirectUrl + "/login");
     }
 }
 

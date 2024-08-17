@@ -44,20 +44,17 @@ public class WebSocketController {
         for (Long followerId : followerIds) {
             Response response = getLatestActivityForFollowees.apply(followerId);
             String result = response.getResult();
-
-            if (!result.isEmpty()) {
-                Map<String, Object> latestActivityMap = jsonUtil.getMapByKey(result, "latest_activity");
-                if (latestActivityMap != null && !latestActivityMap.isEmpty()) {
-                    String message = latestActivityMap.get("message").toString();
-                    if (!message.isEmpty()) {
-                        this.messagingTemplate.convertAndSend(TopicConstants.TOPIC_ACTIVITIES_PREFIX + followerId, message);
-                    }
-                }
+            Map<String, Object> latestActivityMap = jsonUtil.getMapByKey(result, "results");
+            boolean success = Boolean.parseBoolean(latestActivityMap.get("success").toString());
+            if (success) {
+                this.messagingTemplate.convertAndSend(TopicConstants.TOPIC_ACTIVITIES_PREFIX + followerId, latestActivityMap);
             }
         }
     }
 
     public void sendLogoutMessage(Long userId) {
-        this.messagingTemplate.convertAndSend(TopicConstants.TOPIC_LOGOUT_PREFIX + userId, "logout");
+        Map<String, String> response = new HashMap<>();
+        response.put("success", "true");
+        this.messagingTemplate.convertAndSend(TopicConstants.TOPIC_LOGOUT_PREFIX + userId, response);
     }
 }

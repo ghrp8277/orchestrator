@@ -24,4 +24,7 @@ public interface SocialGrpcService {
     Response markActivityAsRead(MarkActivityAsReadRequest markActivityAsReadRequest);
     Response getLatestActivityForFollowees(GetLatestActivityRequest getLatestActivityRequest);
     Response searchPosts(SearchPostsRequest searchPostsRequest);
+    Response createUserSyncInfo(CreateUserSyncInfoRequest createUserSyncInfoRequest);
+    Response getUnfollowedUsers(GetUnfollowedUsersRequest getUnfollowedUsersRequest);
+    Response getPostByIdAndNotLogin(GetPostByIdAndNotLoginRequest getPostByIdAndNotLoginRequest);
 }

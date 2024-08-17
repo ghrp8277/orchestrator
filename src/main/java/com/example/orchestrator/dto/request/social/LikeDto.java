@@ -1,4 +1,4 @@
-package com.example.orchestrator.dto;
+package com.example.orchestrator.dto.request.social;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

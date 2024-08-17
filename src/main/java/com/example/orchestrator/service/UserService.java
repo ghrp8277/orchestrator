@@ -2,18 +2,26 @@ package com.example.orchestrator.service;
 
 import com.example.grpc.*;
 import com.example.orchestrator.dto.*;
+import com.example.orchestrator.dto.request.user.UserDto;
 import com.example.orchestrator.service.grpc.AuthGrpcService;
+import com.example.orchestrator.service.grpc.SocialGrpcService;
 import com.example.orchestrator.service.grpc.UserGrpcService;
+import com.example.orchestrator.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserGrpcService userGrpcService;
     private final AuthGrpcService authGrpcService;
+    private final SocialGrpcService socialGrpcService;
     private final FileUploadService fileUploadService;
+    private final JsonUtil jsonUtil;
 
     public Response registerUser(UserDto userDto, MultipartFile profileImage) {
         ImageDto imageDto = fileUploadService.storeFile(profileImage);
@@ -37,7 +45,23 @@ public class UserService {
             .setProfile(profile)
             .build();
 
-        return userGrpcService.registerUser(request);
+        Response response = userGrpcService.registerUser(request);
+
+        if (!responseHasError(response)) {
+            String result = response.getResult();
+            Map<String, Object> results = jsonUtil.getMapByKey(result, "user");
+            long id = ((Number) results.get("id")).longValue();
+
+            CreateUserSyncInfoRequest syncInfoRequest = CreateUserSyncInfoRequest.newBuilder()
+                    .setUserId(id)
+                    .setUsername(userDto.getUsername())
+                    .setActive(true)
+                    .build();
+
+            socialGrpcService.createUserSyncInfo(syncInfoRequest);
+        }
+
+        return response;
     }
 
     public Response checkUsername(String username) {
@@ -101,5 +125,10 @@ public class UserService {
             .build();
 
         return userGrpcService.updateProfile(request);
+    }
+
+    private boolean responseHasError(Response response) {
+        String result = response.getResult();
+        return result.contains("\"error\"");
     }
 }

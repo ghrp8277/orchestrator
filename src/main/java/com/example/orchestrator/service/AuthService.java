@@ -40,6 +40,7 @@ public class AuthService {
             Response authResponse = authGrpcService.generateAccessToken(authRequest);
             String accessToken = jsonUtil.getValueByKey(authResponse.getResult(), "accessToken");
             responseMap.put("accessToken", accessToken);
+            responseMap.put("userId", userId);
         }
 
         String jsonResponse = jsonUtil.toJson(responseMap);

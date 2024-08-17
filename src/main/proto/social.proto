@@ -29,8 +29,11 @@ service SocialService {
     rpc GetUnreadFeedActivities(GetUnreadFeedActivitiesRequest) returns (common.Response);
     rpc GetFeedActivities(GetFeedActivitiesRequest) returns (common.Response);
     rpc MarkActivityAsRead(MarkActivityAsReadRequest) returns (common.Response);
-    rpc getLatestActivityForFollowees(GetLatestActivityRequest) returns (common.Response);
+    rpc GetLatestActivityForFollowees(GetLatestActivityRequest) returns (common.Response);
     rpc SearchPosts(SearchPostsRequest) returns (common.Response);
+    rpc CreateUserSyncInfo(CreateUserSyncInfoRequest) returns (common.Response);
+    rpc GetUnfollowedUsers(GetUnfollowedUsersRequest) returns (common.Response);
+    rpc GetPostByIdAndNotLogin(GetPostByIdAndNotLoginRequest) returns (common.Response);
 }
 
 message FollowUserRequest {
@@ -49,11 +52,17 @@ message GetFollowersRequest {
 
 message GetPostByIdRequest {
     uint64 postId = 1;
+    uint64 userId = 2;
+}
+
+message GetPostByIdAndNotLoginRequest {
+    uint64 postId = 1;
 }
 
 message GetPostsRequest {
-    uint32 page = 1;
-    uint32 pageSize = 2;
+    string code = 1;
+    uint32 page = 2;
+    uint32 pageSize = 3;
 }
 
 message SearchPostsRequest {
@@ -101,6 +110,7 @@ message CreateCommentRequest {
     uint64 postId = 1;
     uint64 userId = 2;
     string content = 3;
+    string username = 4;
 }
 
 message UpdateCommentRequest {
@@ -129,6 +139,7 @@ message CreateReplyRequest {
     uint64 userId = 2;
     uint64 parentCommentId = 3;
     string content = 4;
+    string username = 5;
 }
 
 message GetUnreadFeedActivitiesRequest {
@@ -149,4 +160,16 @@ message MarkActivityAsReadRequest {
 
 message GetLatestActivityRequest {
     int64 user_id = 1;
+}
+
+message CreateUserSyncInfoRequest {
+    uint64 userId = 1;
+    string username = 2;
+    bool active = 3;
+}
+
+message GetUnfollowedUsersRequest {
+    uint64 userId = 1;
+    uint32 page = 2;
+    uint32 pageSize = 3;
 }

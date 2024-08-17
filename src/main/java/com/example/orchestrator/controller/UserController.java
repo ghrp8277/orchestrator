@@ -1,10 +1,11 @@
 package com.example.orchestrator.controller;
 import com.example.orchestrator.dto.PasswordUpdateDto;
 import com.example.orchestrator.dto.UpdateProfileDto;
-import com.example.orchestrator.dto.UserDto;
+import com.example.orchestrator.dto.request.user.UserDto;
 import com.example.orchestrator.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,20 +32,32 @@ public class UserController {
     }
 
     @GetMapping("/check-username")
-    public ResponseEntity<String> checkUsername(@Valid @RequestParam String username) {
+    public ResponseEntity<String> checkUsername(
+            @Valid
+            @RequestParam
+            @Size(min = 4, max = 20, message = "Username must be between 4 and 20 characters long")
+            String username
+    ) {
         Response response = userService.checkUsername(username);
         return grpcResponseHelper.createJsonResponse(response);
     }
 
     @PostMapping(value = "/register", consumes = "multipart/form-data")
-    public ResponseEntity<String> registerUser(@Valid @RequestPart("user") UserDto userDto,
-                                               @RequestPart("profileImage") MultipartFile profileImage) {
+    public ResponseEntity<String> registerUser(
+            @Valid
+            @RequestPart("user") UserDto userDto,
+            @RequestPart("profileImage") MultipartFile profileImage
+    ) {
         Response response = userService.registerUser(userDto, profileImage);
         return grpcResponseHelper.createJsonResponse(response);
     }
 
     @PostMapping(value = "/change-password", consumes = "application/json")
-    public ResponseEntity<String> updatePassword(@Valid @RequestBody PasswordUpdateDto passwordUpdateDto, HttpServletResponse httpServletResponse) {
+    public ResponseEntity<String> updatePassword(
+            @Valid @RequestBody
+            PasswordUpdateDto passwordUpdateDto,
+            HttpServletResponse httpServletResponse
+    ) {
         Response response = userService.updatePassword(passwordUpdateDto);
         CookieUtil.invalidateTokenCookie(httpServletResponse);
         CookieUtil.redirectTo(httpServletResponse, "/login");
@@ -53,8 +66,11 @@ public class UserController {
     }
 
     @PostMapping(value = "/update-profile", consumes = "multipart/form-data")
-    public ResponseEntity<String> updateProfile(@Valid @RequestPart("user") UpdateProfileDto updateProfileDto,
-                                                @RequestPart("profileImage") MultipartFile profileImage) {
+    public ResponseEntity<String> updateProfile(
+            @Valid
+            @RequestPart("user") UpdateProfileDto updateProfileDto,
+            @RequestPart("profileImage") MultipartFile profileImage
+    ) {
         Response response = userService.updateProfile(updateProfileDto, profileImage);
         return grpcResponseHelper.createJsonResponse(response);
     }

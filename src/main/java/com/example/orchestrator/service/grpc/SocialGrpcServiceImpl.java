@@ -123,4 +123,19 @@ public class SocialGrpcServiceImpl implements SocialGrpcService {
     public Response getLatestActivityForFollowees(GetLatestActivityRequest getLatestActivityRequest) {
         return socialServiceBlockingStub.getLatestActivityForFollowees(getLatestActivityRequest);
     }
+
+    @Override
+    public Response createUserSyncInfo(CreateUserSyncInfoRequest createUserSyncInfoRequest) {
+        return socialServiceBlockingStub.createUserSyncInfo(createUserSyncInfoRequest);
+    }
+
+    @Override
+    public Response getUnfollowedUsers(GetUnfollowedUsersRequest getUnfollowedUsersRequest) {
+        return socialServiceBlockingStub.getUnfollowedUsers(getUnfollowedUsersRequest);
+    }
+
+    @Override
+    public Response getPostByIdAndNotLogin(GetPostByIdAndNotLoginRequest getPostByIdAndNotLoginRequest) {
+        return socialServiceBlockingStub.getPostByIdAndNotLogin(getPostByIdAndNotLoginRequest);
+    }
 }

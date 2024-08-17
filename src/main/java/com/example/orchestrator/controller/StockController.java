@@ -2,12 +2,13 @@ package com.example.orchestrator.controller;
 
 import com.example.orchestrator.constants.HttpConstants;
 import com.example.orchestrator.dto.MovingAveragePeriodsDto;
-import com.example.orchestrator.dto.PaginationRequestDto;
-import com.example.orchestrator.dto.SortParamsDto;
+import com.example.orchestrator.dto.request.common.PaginationRequestDto;
+import com.example.orchestrator.dto.request.stock.SortParamsDto;
 import com.example.orchestrator.dto.TimeframeRequestDto;
 import com.example.orchestrator.service.StockService;
 import com.example.orchestrator.util.GrpcResponseHelper;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,11 @@ public class StockController {
     }
 
     @GetMapping("/markets/{marketName}")
-    public ResponseEntity<String> getMarketByName(@PathVariable String marketName) {
+    public ResponseEntity<String> getMarketByName(
+            @PathVariable
+            @NotBlank(message = "Market name is required")
+            String marketName
+    ) {
         Response response = stockService.getStocksByMarket(marketName);
 
         return ResponseEntity.ok()
@@ -51,7 +56,9 @@ public class StockController {
 
     @GetMapping("/markets/{marketName}/securities")
     public ResponseEntity<String> getAllStocks(
-            @PathVariable String marketName,
+            @PathVariable
+            @NotBlank(message = "Market name is required")
+            String marketName,
             @Valid @ModelAttribute PaginationRequestDto paginationRequestDto,
             @Valid @ModelAttribute SortParamsDto sortParamsDto) {
         Response response = stockService.getAllStocksByMarket(marketName, paginationRequestDto, sortParamsDto);
@@ -61,9 +68,8 @@ public class StockController {
                 .body(grpcResponseHelper.createJsonResponse(response).getBody());
     }
 
-    @GetMapping("/markets/{marketName}/securities/search/name")
+    @GetMapping("/securities/search/name")
     public ResponseEntity<String> searchStocksByName(
-            @PathVariable String marketName,
             @RequestParam String name,
             @Valid @ModelAttribute PaginationRequestDto paginationRequestDto,
             @Valid @ModelAttribute SortParamsDto sortParamsDto
@@ -75,9 +81,8 @@ public class StockController {
                 .body(grpcResponseHelper.createJsonResponse(response).getBody());
     }
 
-    @GetMapping("/markets/{marketName}/securities/search/code")
+    @GetMapping("/securities/search/code")
     public ResponseEntity<String> searchStocksByCode(
-            @PathVariable String marketName,
             @RequestParam String code,
             @Valid @ModelAttribute PaginationRequestDto paginationRequestDto,
             @Valid @ModelAttribute SortParamsDto sortParamsDto
@@ -91,7 +96,9 @@ public class StockController {
 
     @GetMapping("/markets/{marketName}/securities/code/{code}/data")
     public ResponseEntity<String> getStockByCode(
-            @PathVariable String marketName,
+            @PathVariable
+            @NotBlank(message = "Market name is required")
+            String marketName,
             @PathVariable String code,
             @Valid @ModelAttribute TimeframeRequestDto timeframeRequestDto
     ) {

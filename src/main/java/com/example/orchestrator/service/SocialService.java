@@ -3,6 +3,8 @@ package com.example.orchestrator.service;
 import com.example.grpc.*;
 import com.example.orchestrator.controller.WebSocketController;
 import com.example.orchestrator.dto.*;
+import com.example.orchestrator.dto.request.common.PaginationRequestDto;
+import com.example.orchestrator.dto.request.social.*;
 import com.example.orchestrator.service.grpc.SocialGrpcService;
 import com.example.orchestrator.service.grpc.UserGrpcService;
 import com.example.orchestrator.util.JsonUtil;
@@ -71,24 +73,28 @@ public class SocialService {
 
         Response response = socialGrpcService.getFollowers(getFollowersRequest);
         String result = response.getResult();
-        Map<String, Object> followers = jsonUtil.getMapByKey(result, "followers");
-        List<Integer> followerIds = (List<Integer>) followers.get("followerIds");
-
+        Map<String, Object> results = jsonUtil.getMapByKey(result, "results");
+        List<Integer> followerIds = (List<Integer>) results.get("followerIds");
         return followerIds.stream()
                 .map(Integer::longValue)
                 .collect(Collectors.toList());
     }
 
-    public Response getPostById(Long postId) {
+    public Response getPostById(Long postId, Long userId) {
         GetPostByIdRequest getPostByIdRequest = GetPostByIdRequest.newBuilder()
                 .setPostId(postId)
+                .setUserId(userId)
                 .build();
 
         return socialGrpcService.getPostById(getPostByIdRequest);
     }
 
-    public Response getPosts(PaginationRequestDto paginationRequest) {
+    public Response getPosts(
+            String code,
+            PaginationRequestDto paginationRequest
+    ) {
         GetPostsRequest getPostsRequest = GetPostsRequest.newBuilder()
+                .setCode(code)
                 .setPage(paginationRequest.getPage())
                 .setPageSize(paginationRequest.getPageSize())
                 .build();
@@ -198,6 +204,7 @@ public class SocialService {
         CreateCommentRequest createCommentRequest = CreateCommentRequest.newBuilder()
                 .setPostId(postId)
                 .setUserId(userId)
+                .setUsername(createCommentDto.getUsername())
                 .setContent(createCommentDto.getContent())
                 .build();
 
@@ -248,6 +255,7 @@ public class SocialService {
         CreateReplyRequest createReplyRequest = CreateReplyRequest.newBuilder()
                 .setPostId(postId)
                 .setUserId(userId)
+                .setUsername(createReplyDto.getUsername())
                 .setParentCommentId(parentCommentId)
                 .setContent(createReplyDto.getContent())
                 .build();
@@ -320,12 +328,30 @@ public class SocialService {
         return socialGrpcService.markActivityAsRead(request);
     }
 
+    public Response getUnfollowedUsers(Long userId, PaginationRequestDto paginationRequestDto) {
+        GetUnfollowedUsersRequest request = GetUnfollowedUsersRequest.newBuilder()
+                .setUserId(userId)
+                .setPage(paginationRequestDto.getPage())
+                .setPageSize(paginationRequestDto.getPageSize())
+                .build();
+
+        return socialGrpcService.getUnfollowedUsers(request);
+    }
+
     public Response getLatestActivityForFollowees(Long userId) {
         GetLatestActivityRequest request = GetLatestActivityRequest.newBuilder()
                 .setUserId(userId)
                 .build();
 
         return socialGrpcService.getLatestActivityForFollowees(request);
+    }
+
+    public Response getPostByIdAndNotLogin(Long postId) {
+        GetPostByIdAndNotLoginRequest getPostByIdAndNotLoginRequest = GetPostByIdAndNotLoginRequest.newBuilder()
+                .setPostId(postId)
+                .build();
+
+        return socialGrpcService.getPostByIdAndNotLogin(getPostByIdAndNotLoginRequest);
     }
 
     private boolean responseHasError(Response response) {
