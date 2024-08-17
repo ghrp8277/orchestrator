@@ -1,5 +1,5 @@
 environment: green
-imageTag: "20240812-071454"
+imageTag: "20240818-014635"
 service:
   name: orchestrator-service-green
 fluentBitService:
