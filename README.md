@@ -2,6 +2,8 @@
 
 # 프로젝트 설계도
 ![image](https://github.com/user-attachments/assets/d959759f-bd80-4182-ab76-739423653e77)
+![image](https://github.com/user-attachments/assets/b987bebe-745d-48c2-8d6b-d0defa2b408e)
+
 # ERD
 ![image](https://github.com/user-attachments/assets/b37b8dda-5374-46e3-8a6a-2c491eaf1504)
 
