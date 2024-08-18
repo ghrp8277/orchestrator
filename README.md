@@ -1,10 +1,12 @@
 # 종목 토론 프로젝트
 
-# 프로젝트 설계도
+## ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)  👉🏻[Postman API Document](https://documenter.getpostman.com/view/11658972/2sA3s9CoB4)
+
+## 프로젝트 설계도
 ![image](https://github.com/user-attachments/assets/d959759f-bd80-4182-ab76-739423653e77)
 ![image](https://github.com/user-attachments/assets/b987bebe-745d-48c2-8d6b-d0defa2b408e)
 
-# ERD
+## ERD
 ![image](https://github.com/user-attachments/assets/b37b8dda-5374-46e3-8a6a-2c491eaf1504)
 
 ## 프로젝트 소개
