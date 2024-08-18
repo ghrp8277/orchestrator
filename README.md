@@ -76,4 +76,5 @@
 ### [BatchService](https://github.com/ghrp8277/batch_service)
 - **역할**: 배치 작업을 처리하고 주가 데이터를 크롤링하여 저장합니다.
 
-### [finance_front](https://github.com/ghrp8277/batch_service)](https://github.com/ghrp8277/finance_front)
+### [finance_front](https://github.com/ghrp8277/finance_front)
+- **역할**: 서비스 화면
