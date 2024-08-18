@@ -1,6 +1,9 @@
 # 종목 토론 프로젝트
 
 ## ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)  👉🏻[Postman API Document](https://documenter.getpostman.com/view/11658972/2sA3s9CoB4)
+<br>
+
+🔗 [서비스 링크](http://server.leejehyeon.site:3000/)
 
 ## 서비스 시연 
 ![20240818_212604](https://github.com/user-attachments/assets/f8b41511-4d7e-42cf-b9d5-82ca216cb8f6)|![20240818_205725](https://github.com/user-attachments/assets/633c5477-8693-42c8-a2f0-ab3706802d52)|![20240818_211707](https://github.com/user-attachments/assets/8b5276ab-4dfb-4fcc-855a-4d8321d09d29)
