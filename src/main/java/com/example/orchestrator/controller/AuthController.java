@@ -1,8 +1,8 @@
 package com.example.orchestrator.controller;
 
 import com.example.grpc.Response;
-import com.example.orchestrator.dto.LoginDto;
-import com.example.orchestrator.dto.LogoutDto;
+import com.example.orchestrator.dto.request.auth.LoginDto;
+import com.example.orchestrator.dto.request.auth.LogoutDto;
 import com.example.orchestrator.service.AuthService;
 import com.example.orchestrator.util.CookieUtil;
 import com.example.orchestrator.util.GrpcResponseHelper;

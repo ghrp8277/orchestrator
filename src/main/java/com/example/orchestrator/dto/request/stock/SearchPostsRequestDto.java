@@ -1,4 +1,4 @@
-package com.example.orchestrator.dto;
+package com.example.orchestrator.dto.request.stock;
 
 import com.example.orchestrator.dto.request.common.PaginationRequestDto;
 import lombok.Getter;

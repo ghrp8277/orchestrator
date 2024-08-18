@@ -1,4 +1,4 @@
-package com.example.orchestrator.dto;
+package com.example.orchestrator.dto.request.common;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

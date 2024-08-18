@@ -2,6 +2,9 @@ package com.example.orchestrator.service;
 
 import com.example.grpc.*;
 import com.example.orchestrator.dto.*;
+import com.example.orchestrator.dto.request.social.UpdateProfileDto;
+import com.example.orchestrator.dto.request.user.FindUserDto;
+import com.example.orchestrator.dto.request.user.PasswordUpdateDto;
 import com.example.orchestrator.dto.request.user.UserDto;
 import com.example.orchestrator.service.grpc.AuthGrpcService;
 import com.example.orchestrator.service.grpc.SocialGrpcService;
@@ -11,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Map;
 
 @Service

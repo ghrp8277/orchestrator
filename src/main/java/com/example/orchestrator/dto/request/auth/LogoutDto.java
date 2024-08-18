@@ -1,4 +1,4 @@
-package com.example.orchestrator.dto;
+package com.example.orchestrator.dto.request.auth;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class FindUserDto {
+public class LogoutDto {
     @NotNull(message = "User ID is required")
     private long userId;
 }

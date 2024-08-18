@@ -1,4 +1,4 @@
-package com.example.orchestrator.dto;
+package com.example.orchestrator.dto.request.social;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

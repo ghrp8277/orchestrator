@@ -1,8 +1,8 @@
 package com.example.orchestrator.service;
 
 import com.example.grpc.*;
-import com.example.orchestrator.dto.LoginDto;
-import com.example.orchestrator.dto.LogoutDto;
+import com.example.orchestrator.dto.request.auth.LoginDto;
+import com.example.orchestrator.dto.request.auth.LogoutDto;
 import com.example.orchestrator.service.grpc.AuthGrpcService;
 import com.example.orchestrator.service.grpc.UserGrpcService;
 import com.example.orchestrator.util.JsonUtil;

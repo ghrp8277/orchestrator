@@ -1,9 +1,9 @@
 package com.example.orchestrator.controller;
 
 import com.example.grpc.Response;
-import com.example.orchestrator.dto.*;
 import com.example.orchestrator.dto.request.common.PaginationRequestDto;
 import com.example.orchestrator.dto.request.social.*;
+import com.example.orchestrator.dto.request.stock.SearchPostsRequestDto;
 import com.example.orchestrator.service.SocialService;
 import com.example.orchestrator.util.GrpcResponseHelper;
 import jakarta.validation.Valid;

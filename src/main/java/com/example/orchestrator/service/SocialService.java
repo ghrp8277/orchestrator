@@ -2,9 +2,9 @@ package com.example.orchestrator.service;
 
 import com.example.grpc.*;
 import com.example.orchestrator.controller.WebSocketController;
-import com.example.orchestrator.dto.*;
 import com.example.orchestrator.dto.request.common.PaginationRequestDto;
 import com.example.orchestrator.dto.request.social.*;
+import com.example.orchestrator.dto.request.stock.SearchPostsRequestDto;
 import com.example.orchestrator.service.grpc.SocialGrpcService;
 import com.example.orchestrator.service.grpc.UserGrpcService;
 import com.example.orchestrator.util.JsonUtil;

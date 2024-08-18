@@ -1,6 +1,6 @@
 package com.example.orchestrator.controller;
-import com.example.orchestrator.dto.PasswordUpdateDto;
-import com.example.orchestrator.dto.UpdateProfileDto;
+import com.example.orchestrator.dto.request.user.PasswordUpdateDto;
+import com.example.orchestrator.dto.request.social.UpdateProfileDto;
 import com.example.orchestrator.dto.request.user.UserDto;
 import com.example.orchestrator.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;

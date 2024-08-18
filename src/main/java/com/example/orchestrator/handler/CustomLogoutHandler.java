@@ -2,7 +2,7 @@ package com.example.orchestrator.handler;
 
 import com.example.orchestrator.constants.TokenConstants;
 import com.example.orchestrator.controller.WebSocketController;
-import com.example.orchestrator.dto.LogoutDto;
+import com.example.orchestrator.dto.request.auth.LogoutDto;
 import com.example.orchestrator.service.AuthService;
 import com.example.orchestrator.util.CookieUtil;
 import com.example.orchestrator.util.GrpcResponseHelper;

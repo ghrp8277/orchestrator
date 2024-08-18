@@ -4,7 +4,7 @@ import com.example.orchestrator.constants.HttpConstants;
 import com.example.orchestrator.dto.MovingAveragePeriodsDto;
 import com.example.orchestrator.dto.request.common.PaginationRequestDto;
 import com.example.orchestrator.dto.request.stock.SortParamsDto;
-import com.example.orchestrator.dto.TimeframeRequestDto;
+import com.example.orchestrator.dto.request.common.TimeframeRequestDto;
 import com.example.orchestrator.service.StockService;
 import com.example.orchestrator.util.GrpcResponseHelper;
 import jakarta.validation.Valid;

@@ -1,6 +1,6 @@
 package com.example.orchestrator.service;
 
-import com.example.orchestrator.dto.FindUserDto;
+import com.example.orchestrator.dto.request.user.FindUserDto;
 import com.example.orchestrator.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

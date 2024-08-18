@@ -1,4 +1,4 @@
-package com.example.orchestrator.dto;
+package com.example.orchestrator.dto.request.social;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class UnFollowUserDto {
+public class FollowUserDto {
 
     @NotNull(message = "Follower ID is required")
     private Long followerId;
