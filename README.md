@@ -1,10 +1,17 @@
 # 종목 토론 프로젝트
 
 ## ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)  👉🏻[Postman API Document](https://documenter.getpostman.com/view/11658972/2sA3s9CoB4)
+<br>
+
+🔗 [서비스 링크](http://server.leejehyeon.site:3000/)
+
+## 서비스 시연 
+![20240818_212604](https://github.com/user-attachments/assets/f8b41511-4d7e-42cf-b9d5-82ca216cb8f6)|![20240818_205725](https://github.com/user-attachments/assets/633c5477-8693-42c8-a2f0-ab3706802d52)|![20240818_211707](https://github.com/user-attachments/assets/8b5276ab-4dfb-4fcc-855a-4d8321d09d29)
 
 ## 프로젝트 설계도
 ![image](https://github.com/user-attachments/assets/d959759f-bd80-4182-ab76-739423653e77)
 ![image](https://github.com/user-attachments/assets/b987bebe-745d-48c2-8d6b-d0defa2b408e)
+![스크린샷 2024-08-18 214559](https://github.com/user-attachments/assets/2bf5abb6-5bd6-4904-831b-5595f03fa9a1)
 
 ## ERD
 ![image](https://github.com/user-attachments/assets/b37b8dda-5374-46e3-8a6a-2c491eaf1504)
@@ -72,3 +79,6 @@
 
 ### [BatchService](https://github.com/ghrp8277/batch_service)
 - **역할**: 배치 작업을 처리하고 주가 데이터를 크롤링하여 저장합니다.
+
+### [finance_front](https://github.com/ghrp8277/finance_front)
+- **역할**: 서비스 화면
