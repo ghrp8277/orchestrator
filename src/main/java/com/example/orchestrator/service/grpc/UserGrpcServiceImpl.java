@@ -20,6 +20,11 @@ public class UserGrpcServiceImpl implements UserGrpcService {
     }
 
     @Override
+    public Response getUserById(GetUserByIdRequest getUserByIdRequest) {
+        return userServiceBlockingStub.getUserById(getUserByIdRequest);
+    }
+
+    @Override
     public Response registerUser(RegisterUserRequest registerUserRequest) {
         return userServiceBlockingStub.registerUser(registerUserRequest);
     }

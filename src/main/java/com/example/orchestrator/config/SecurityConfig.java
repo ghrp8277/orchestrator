@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, SecurityPathConstants.SOCIAL_POSTS).permitAll()
                 .requestMatchers(HttpMethod.GET, SecurityPathConstants.SOCIAL_DETAIL_POSTS).permitAll()
                 .requestMatchers(HttpMethod.GET, SecurityPathConstants.SOCIAL_PUBLIC_DETAIL_POSTS).permitAll()
+                .requestMatchers(HttpMethod.GET, SecurityPathConstants.USER_INFO).permitAll()
                 .requestMatchers("/ws/**").permitAll()
                 .anyRequest().authenticated()
             )

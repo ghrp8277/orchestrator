@@ -25,6 +25,14 @@ public class UserService {
     private final FileUploadService fileUploadService;
     private final JsonUtil jsonUtil;
 
+    public Response getUserById(Long userId) {
+        GetUserByIdRequest request = GetUserByIdRequest.newBuilder()
+                .setUserId(userId)
+                .build();
+
+        return userGrpcService.getUserById(request);
+    }
+
     public Response registerUser(UserDto userDto, MultipartFile profileImage) {
         ImageDto imageDto = fileUploadService.storeFile(profileImage);
 

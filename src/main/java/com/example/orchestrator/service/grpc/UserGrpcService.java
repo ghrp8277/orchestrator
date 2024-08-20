@@ -2,6 +2,7 @@ package com.example.orchestrator.service.grpc;
 import com.example.grpc.*;
 
 public interface UserGrpcService {
+    Response getUserById (GetUserByIdRequest getUserByIdRequest);
     Response registerUser(RegisterUserRequest registerUserRequest);
     Response checkUsername(CheckUsernameRequest checkUsernameRequest);
     Response authenticateUser(AuthenticateUserRequest authenticateUserRequest);

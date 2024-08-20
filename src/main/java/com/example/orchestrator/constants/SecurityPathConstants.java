@@ -7,6 +7,7 @@ public class SecurityPathConstants {
     private static final String AUTH_REGISTER = "/auth/register";
     private static final String USER_CHECK_USERNAME = "/users/check-username";
     private static final String USER_REGISTER = "/users/register";
+    public static final String USER_INFO = "/users/*";
     private static final String EMAIL_SEND = "/email/send";
     private static final String EMAIL_VERIFY = "/email/verify";
     public static final String SOCIAL_POSTS = "/social/posts/symbol/*";

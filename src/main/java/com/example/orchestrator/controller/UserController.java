@@ -1,12 +1,15 @@
 package com.example.orchestrator.controller;
+import com.example.orchestrator.constants.HttpConstants;
 import com.example.orchestrator.dto.request.user.PasswordUpdateDto;
 import com.example.orchestrator.dto.request.social.UpdateProfileDto;
 import com.example.orchestrator.dto.request.user.UserDto;
 import com.example.orchestrator.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
@@ -15,6 +18,8 @@ import com.example.grpc.*;
 import com.example.orchestrator.util.GrpcResponseHelper;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.orchestrator.util.CookieUtil;
+
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/users")
@@ -29,6 +34,17 @@ public class UserController {
         this.userService = userService;
         this.grpcResponseHelper = grpcResponseHelper;
         this.webSocketController = webSocketController;
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<String> getUserById(
+            @RequestHeader("user-id") @NotNull Long userId
+    ) {
+        Response response = userService.getUserById(userId);
+        
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
+                .body(grpcResponseHelper.createJsonResponse(response).getBody());
     }
 
     @GetMapping("/check-username")
