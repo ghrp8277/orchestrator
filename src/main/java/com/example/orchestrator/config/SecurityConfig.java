@@ -70,6 +70,8 @@ public class SecurityConfig {
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("http://localhost:3001");
         configuration.addAllowedOrigin("http://192.168.0.240:3000");
+        configuration.addAllowedOrigin("http://server.leejehyeon.site:3000");
+        configuration.addAllowedOrigin("http://192.168.0.212:3000");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.addExposedHeader("Set-Cookie");
