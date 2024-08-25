@@ -7,6 +7,7 @@ import com.example.orchestrator.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             Long userId = extractUserIdFromRequest(request);
             String jwt = extractJwtFromRequest(request);
-
             if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.customUserDetailsService.loadUserByUserId(userId);
 
@@ -102,10 +102,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private String extractJwtFromRequest(HttpServletRequest request) {
+        // 1. Authorization 헤더에서 JWT 추출
         final String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             return authorizationHeader.substring(7);
         }
+
+        // 2. Cookie에서 JWT 추출
+        if (authorizationHeader == null) {
+            if (request.getCookies() != null) {
+                for (Cookie cookie : request.getCookies()) {
+                    if ("accessToken".equals(cookie.getName())) {
+                        return cookie.getValue();
+                    }
+                }
+            }
+        }
+
         return null;
     }
 
