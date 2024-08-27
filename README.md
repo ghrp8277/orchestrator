@@ -82,3 +82,6 @@
 
 ### [finance_front](https://github.com/ghrp8277/finance_front)
 - **역할**: 서비스 화면
+
+### [SubModule](https://github.com/ghrp8277/common-technical-indicators)
+- **역할**: SubModule
