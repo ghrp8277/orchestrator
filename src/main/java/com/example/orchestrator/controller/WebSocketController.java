@@ -40,6 +40,17 @@ public class WebSocketController {
         kafkaProducerService.sendInitialDataRequest(marketName, code, timeframe, uuid);
     }
 
+    @MessageMapping("/dailyData/{marketName}/{code}/{uuid}")
+    public void handleDailyDataRequest(
+            @DestinationVariable String marketName,
+            @DestinationVariable String code,
+            @DestinationVariable String uuid,
+            @Payload Map<String, String> request
+    ) {
+        String timeframe = request.get("timeframe");
+        kafkaProducerService.sendDaliyDataRequest(marketName, code, timeframe, uuid);
+    }
+
     public void sendActivityUpdate(List<Long> followerIds, Function<Long, Response> getLatestActivityForFollowees) {
         for (Long followerId : followerIds) {
             Response response = getLatestActivityForFollowees.apply(followerId);

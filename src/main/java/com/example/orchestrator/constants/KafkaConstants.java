@@ -2,6 +2,7 @@ package com.example.orchestrator.constants;
 
 public class KafkaConstants {
     public static final String INITIAL_DATA_REQUEST_TOPIC = "initial-data-request";
+    public static final String DAILY_DATA_REQUEST_TOPIC = "daily-data-request";
 
     public static final String INITIAL_DATA_GROUP_ID = "initial-data-group";
     public static final String INITIAL_DATA_TOPIC = "initial-data-topic";

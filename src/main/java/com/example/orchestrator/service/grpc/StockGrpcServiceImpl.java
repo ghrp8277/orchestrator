@@ -69,4 +69,19 @@ public class StockGrpcServiceImpl implements StockGrpcService {
     public Response getRSI(GetRSIRequest getRSIRequest) {
         return stockServiceBlockingStub.getRSI(getRSIRequest);
     }
+
+    @Override
+    public Response getFavoritesByUser (GetFavoritesByUserRequest getFavoritesByUserRequest) {
+        return stockServiceBlockingStub.getFavoritesByUser(getFavoritesByUserRequest);
+    }
+
+    @Override
+    public Response addFavorite (AddFavoriteRequest addFavoriteRequest) {
+        return stockServiceBlockingStub.addFavorite(addFavoriteRequest);
+    }
+
+    @Override
+    public Response removeFavorite (RemoveFavoriteRequest removeFavoriteRequest) {
+        return stockServiceBlockingStub.removeFavorite(removeFavoriteRequest);
+    }
 }

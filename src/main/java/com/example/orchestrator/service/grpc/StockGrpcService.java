@@ -13,4 +13,7 @@ public interface StockGrpcService {
     Response getBollingerBands(GetBollingerBandsRequest getBollingerBandsRequest);
     Response getMACD(GetMACDRequest getMACDRequest);
     Response getRSI(GetRSIRequest getRSIRequest);
+    Response getFavoritesByUser (GetFavoritesByUserRequest getFavoritesByUserRequest);
+    Response addFavorite (AddFavoriteRequest addFavoriteRequest);
+    Response removeFavorite (RemoveFavoriteRequest removeFavoriteRequest);
 }

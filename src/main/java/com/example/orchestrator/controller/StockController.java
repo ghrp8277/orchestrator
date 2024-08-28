@@ -3,12 +3,14 @@ package com.example.orchestrator.controller;
 import com.example.orchestrator.constants.HttpConstants;
 import com.example.orchestrator.dto.MovingAveragePeriodsDto;
 import com.example.orchestrator.dto.request.common.PaginationRequestDto;
+import com.example.orchestrator.dto.request.stock.FavoriteRequestDto;
 import com.example.orchestrator.dto.request.stock.SortParamsDto;
 import com.example.orchestrator.dto.request.common.TimeframeRequestDto;
 import com.example.orchestrator.service.StockService;
 import com.example.orchestrator.util.GrpcResponseHelper;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,5 +158,30 @@ public class StockController {
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(HttpConstants.CACHE_MAX_AGE_SECONDS, TimeUnit.SECONDS))
                 .body(grpcResponseHelper.createJsonResponse(response).getBody());
+    }
+
+    @GetMapping("/favorites")
+    public ResponseEntity<String> getFavorites(
+            @RequestHeader("user-id") @NotNull Long userId,
+            @Valid @ModelAttribute PaginationRequestDto paginationRequest
+    ) {
+        Response response = stockService.getFavoritesByUser(userId, paginationRequest);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @PostMapping("/favorites")
+    public ResponseEntity<String> addFavorite(
+            @Valid @RequestBody FavoriteRequestDto favoriteRequestDto
+    ) {
+        Response response = stockService.addFavorite(favoriteRequestDto);
+        return grpcResponseHelper.createJsonResponse(response);
+    }
+
+    @DeleteMapping("/favorites")
+    public ResponseEntity<String> removeFavorite(
+            @Valid @RequestBody FavoriteRequestDto favoriteRequestDto
+    ) {
+        Response response = stockService.removeFavorite(favoriteRequestDto);
+        return grpcResponseHelper.createJsonResponse(response);
     }
 }

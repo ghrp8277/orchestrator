@@ -31,4 +31,21 @@ public class KafkaProducerService {
             throw new RuntimeException("Failed to send initial data request", e);
         }
     }
+
+    public void sendDaliyDataRequest(String marketName, String code, String timeframe, String uuid) {
+        try {
+            Map<String, String> messageMap = Map.of(
+                    "marketName", marketName,
+                    "code", code,
+                    "timeframe", timeframe,
+                    "uuid", uuid
+            );
+
+            String message = objectMapper.writeValueAsString(messageMap);
+
+            kafkaTemplate.send(KafkaConstants.DAILY_DATA_REQUEST_TOPIC, code, message);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to send daliy data request", e);
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.example.orchestrator.service;
 
 import com.example.orchestrator.dto.MovingAveragePeriodsDto;
 import com.example.orchestrator.dto.request.common.PaginationRequestDto;
+import com.example.orchestrator.dto.request.stock.FavoriteRequestDto;
 import com.example.orchestrator.dto.request.stock.SortParamsDto;
 import com.example.orchestrator.dto.request.common.TimeframeRequestDto;
 import com.example.orchestrator.service.grpc.StockGrpcService;
@@ -142,5 +143,30 @@ public class StockService {
                 .setTimeframe(timeframeRequestDto.getTimeframe())
                 .build();
         return stockGrpcService.getRSI(getRSIRequest);
+    }
+
+    public Response getFavoritesByUser(Long userId, PaginationRequestDto paginationRequest) {
+        GetFavoritesByUserRequest request = GetFavoritesByUserRequest.newBuilder()
+                .setUserId(userId)
+                .setPage(paginationRequest.getPage())
+                .setPageSize(paginationRequest.getPageSize())
+                .build();
+        return stockGrpcService.getFavoritesByUser(request);
+    }
+
+    public Response addFavorite(FavoriteRequestDto favoriteRequestDto) {
+        AddFavoriteRequest request = AddFavoriteRequest.newBuilder()
+                .setUserId(favoriteRequestDto.getUserId())
+                .setStockCode(favoriteRequestDto.getStockCode())
+                .build();
+        return stockGrpcService.addFavorite(request);
+    }
+
+    public Response removeFavorite(FavoriteRequestDto favoriteRequestDto) {
+        RemoveFavoriteRequest request = RemoveFavoriteRequest.newBuilder()
+                .setUserId(favoriteRequestDto.getUserId())
+                .setStockCode(favoriteRequestDto.getStockCode())
+                .build();
+        return stockGrpcService.removeFavorite(request);
     }
 }
