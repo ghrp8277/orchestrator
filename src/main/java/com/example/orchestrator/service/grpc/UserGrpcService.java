@@ -3,6 +3,7 @@ import com.example.grpc.*;
 
 public interface UserGrpcService {
     Response getUserById (GetUserByIdRequest getUserByIdRequest);
+    Response getUserByUsername (GetUserByUsernameRequest getUserByUsernameRequest);
     Response registerUser(RegisterUserRequest registerUserRequest);
     Response checkUsername(CheckUsernameRequest checkUsernameRequest);
     Response authenticateUser(AuthenticateUserRequest authenticateUserRequest);

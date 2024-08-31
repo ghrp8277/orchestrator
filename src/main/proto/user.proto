@@ -9,17 +9,22 @@ package user;
 import "common.proto";
 
 service UserService {
-    rpc getUserById (GetUserByIdRequest) returns (common.Response);
+    rpc GetUserById (GetUserByIdRequest) returns (common.Response);
+    rpc GetUserByUsername (GetUserByUsernameRequest) returns (common.Response);
     rpc CheckUsername (CheckUsernameRequest) returns (common.Response);
     rpc RegisterUser (RegisterUserRequest) returns (common.Response);
     rpc AuthenticateUser (AuthenticateUserRequest) returns (common.Response);
     rpc UpdatePassword (UpdatePasswordRequest) returns (common.Response);
-    rpc findUser (FindUserRequest) returns (common.Response);
+    rpc FindUser (FindUserRequest) returns (common.Response);
     rpc UpdateProfile (UpdateProfileRequest) returns (common.Response);
 }
 
 message GetUserByIdRequest {
     uint64 userId = 1;
+}
+
+message GetUserByUsernameRequest {
+    string username = 1;
 }
 
 message FindUserRequest {

@@ -33,6 +33,14 @@ public class UserService {
         return userGrpcService.getUserById(request);
     }
 
+    public Response getUserByUsername(String username) {
+        GetUserByUsernameRequest request = GetUserByUsernameRequest.newBuilder()
+                .setUsername(username)
+                .build();
+
+        return userGrpcService.getUserByUsername(request);
+    }
+
     public Response registerUser(UserDto userDto, MultipartFile profileImage) {
         ImageDto imageDto = fileUploadService.storeFile(profileImage);
 
