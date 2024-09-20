@@ -16,6 +16,7 @@ public class SecurityPathConstants {
     private static final String SOCIAL_UNREAD_ACTIVITIES = "/social/activities/unread";
     public static final String SOCIAL_PUBLIC_DETAIL_POSTS = "/social/posts/public/detail/*";
     private static final String STOCK_WILDCARD = "/stock/**";
+    private static final String PRODUCT_POINTS = "/product/points";
     private static final String HEALTH_CHECK = "/healthz";
     private static final String READINESS_CHECK = "/readyz";
 
@@ -29,6 +30,7 @@ public class SecurityPathConstants {
                 EMAIL_VERIFY,
                 SOCIAL_UNFOLLOWED_USERS,
                 STOCK_WILDCARD,
+                PRODUCT_POINTS,
                 HEALTH_CHECK,
                 READINESS_CHECK,
                 SOCIAL_UNREAD_ACTIVITIES

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpc";
+option java_outer_classname = "ProductProto";
+
+package productproto;
+
+import "common.proto";
+
+service ProductService {
+    rpc getAllPoints(common.Empty) returns (common.Response) {}
+    rpc purchasePoints(PurchasePointsRequest) returns (common.Response) {}
+}
+
+message PurchasePointsRequest {
+    int32 userId = 1;
+    double amount = 2;
+}
