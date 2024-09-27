@@ -17,11 +17,13 @@ public class SecurityPathConstants {
     public static final String SOCIAL_PUBLIC_DETAIL_POSTS = "/social/posts/public/detail/*";
     private static final String STOCK_WILDCARD = "/stock/**";
     private static final String PRODUCT_POINTS = "/product/points";
+    private static final String TEST = "/wallet/create";
     private static final String HEALTH_CHECK = "/healthz";
     private static final String READINESS_CHECK = "/readyz";
 
     public static List<String> getPublicPaths() {
         return List.of(
+                TEST,
                 AUTH_LOGIN,
                 AUTH_REGISTER,
                 USER_CHECK_USERNAME,

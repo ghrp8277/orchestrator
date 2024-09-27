@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.grpc";
+option java_outer_classname = "WalletProto";
+
+package walletproto;
+
+import "common.proto";
+
+service WalletService {
+  rpc getWallet(GetWalletRequest) returns (common.Response) {}
+  rpc createWallet(CreateWalletRequest) returns (common.Response) {}
+  rpc deposit(DepositRequest) returns (common.Response) {}
+  rpc withdraw(WithdrawRequest) returns (common.Response) {}
+}
+
+message GetWalletRequest {
+  int32 walletId = 1;
+}
+
+message CreateWalletRequest {
+  int32 userId = 1;
+  string currency = 2;
+  string password = 3;
+  bool isDefault = 4;
+}
+
+message DepositRequest {
+  int32 userId = 1;
+  double amount = 2;
+}
+
+message WithdrawRequest {
+  int32 userId = 1;
+  double amount = 2;
+}
